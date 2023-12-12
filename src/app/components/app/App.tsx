@@ -1,12 +1,12 @@
-import { Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import AppHeader from "../appHeader/AppHeader";
-import Spinner from "../spinner/Spinner";
-import BookShelvesPage from "../bookShelvesPage/BookShelvesPage";
-import BooksPage from "../booksPage/BooksPage";
-import BookChallengePage from "../bookChallengePage/BookChallengePage";
+import { Suspense } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import AppHeader from '../appHeader/AppHeader'
+import Spinner from '../spinner/Spinner'
+import BookShelvesPage from '../bookShelvesPage/BookShelvesPage'
+import BooksPage from '../booksPage/BooksPage'
+import BookChallengePage from '../bookChallengePage/BookChallengePage'
 
-import "./app.scss";
+import './app.scss'
 
 const App = () => {
   return (
@@ -22,7 +22,7 @@ const App = () => {
         </Suspense>
       </div>
     </Router>
-  );
-};
+  )
+}
 
-export default App;
+export default App

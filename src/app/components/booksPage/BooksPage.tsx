@@ -1,7 +1,7 @@
-import BooksList from "../booksList/BooksList";
-import BooksAddForm from "../booksAddForm/BooksAddForm";
-import BooksFilters from "../booksFilters/BooksFilters";
-import "./booksPage.scss";
+import BooksList from '../booksList/BooksList'
+import BooksAddForm from '../booksAddForm/BooksAddForm'
+import BooksFilters from '../booksFilters/BooksFilters'
+import './booksPage.scss'
 
 const BooksPage = () => {
   return (
@@ -24,7 +24,7 @@ const BooksPage = () => {
         <BooksAddForm />
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BooksPage;
+export default BooksPage

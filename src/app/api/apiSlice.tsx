@@ -1,76 +1,76 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const apiSlice = createApi({
-  reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
-  tagTypes: ["Books", "Bingo", "Filters"],
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
+  tagTypes: ['Books', 'Bingo', 'Filters'],
   endpoints: (builder) => ({
     getBooks: builder.query({
-      query: () => "/books",
-      providesTags: ["Books"],
+      query: () => '/books',
+      providesTags: ['Books'],
     }),
     createBook: builder.mutation({
       query: (book) => ({
-        url: "/books",
-        method: "POST",
+        url: '/books',
+        method: 'POST',
         body: book,
       }),
-      invalidatesTags: ["Books"],
+      invalidatesTags: ['Books'],
     }),
     deleteBook: builder.mutation({
       query: (id) => ({
         url: `/books/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Books"],
+      invalidatesTags: ['Books'],
     }),
     updateBook: builder.mutation({
       query(data) {
-        const { id, ...body } = data;
+        const { id, ...body } = data
         return {
           url: `/books/${id}`,
-          method: "PUT",
+          method: 'PUT',
           body,
-        };
+        }
       },
-      invalidatesTags: ["Books"],
+      invalidatesTags: ['Books'],
     }),
     getBingo: builder.query({
-      query: () => "/bingo",
-      providesTags: ["Bingo"],
+      query: () => '/bingo',
+      providesTags: ['Bingo'],
     }),
     createBingo: builder.mutation({
       query: (bingo) => ({
-        url: "/bingo",
-        method: "POST",
+        url: '/bingo',
+        method: 'POST',
         body: bingo,
       }),
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
     deleteBingo: builder.mutation({
       query: (id) => ({
         url: `/bingo/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
     updateBingo: builder.mutation({
       query(data) {
-        const { id, ...body } = data;
+        const { id, ...body } = data
         return {
           url: `/bingo/${id}`,
-          method: "PUT",
+          method: 'PUT',
           body,
-        };
+        }
       },
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
     getFilters: builder.query({
-      query: () => "/filters",
-      providesTags: ["Filters"],
+      query: () => '/filters',
+      providesTags: ['Filters'],
     }),
   }),
-});
+})
 
 export const {
   useGetBooksQuery,
@@ -82,4 +82,4 @@ export const {
   useDeleteBingoMutation,
   useUpdateBingoMutation,
   useGetFiltersQuery,
-} = apiSlice;
+} = apiSlice

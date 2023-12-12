@@ -1,46 +1,46 @@
-import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const bingoSlice = createApi({
-  reducerPath: "api",
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
-  tagTypes: ["Bingo"],
+  reducerPath: 'api',
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
+  tagTypes: ['Bingo'],
   endpoints: (builder) => ({
     getBingo: builder.query({
-      query: () => "/bingo",
-      providesTags: ["Bingo"],
+      query: () => '/bingo',
+      providesTags: ['Bingo'],
     }),
     createBingo: builder.mutation({
       query: (bingo) => ({
-        url: "/bingo",
-        method: "POST",
+        url: '/bingo',
+        method: 'POST',
         body: bingo,
       }),
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
     deleteBingo: builder.mutation({
       query: (id) => ({
         url: `/bingo/${id}`,
-        method: "DELETE",
+        method: 'DELETE',
       }),
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
     updateBingo: builder.mutation({
       query(data) {
-        const { id, ...body } = data;
+        const { id, ...body } = data
         return {
           url: `/bingo/${id}`,
-          method: "PUT",
+          method: 'PUT',
           body,
-        };
+        }
       },
-      invalidatesTags: ["Bingo"],
+      invalidatesTags: ['Bingo'],
     }),
   }),
-});
+})
 
 export const {
   useGetBingoQuery,
   useCreateBingoMutation,
   useDeleteBingoMutation,
   useUpdateBingoMutation,
-} = bingoSlice;
+} = bingoSlice
