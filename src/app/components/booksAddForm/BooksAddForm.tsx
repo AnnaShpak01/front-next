@@ -26,7 +26,7 @@ const BooksAddForm = () => {
 
   const [createBook] = useCreateBookMutation()
   const { data: filters = [] } = useGetFiltersQuery('Filters')
-  const { filtersLoadingStatus } = useSelector((state: InitStateType) => state)
+  const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
 
   const onSubmitHandler = (e: any) => {
     e.preventDefault()

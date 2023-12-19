@@ -1,23 +1,16 @@
 export type BingoTypeCard = {
-  id: number;
-  side: string;
-  color: string;
-  status: boolean;
-  bingoClass: string;
-  updateBingo: ({}) => void;
-};
+  id: string
+  side: string
+  color: string
+  status: boolean
+  bingoClass: string
+  updateBingo: ({}) => void
+}
 
-const BingoCard = ({
-  id,
-  side,
-  color,
-  status,
-  bingoClass,
-  updateBingo,
-}: BingoTypeCard) => {
+const BingoCard = ({ id, side, color, status, bingoClass, updateBingo }: BingoTypeCard) => {
   const onClickCard = () => {
-    updateBingo({ task: side, color, status: !status, id });
-  };
+    updateBingo({ task: side, color, status: !status, id: id.toString() })
+  }
 
   return (
     <div className="bingo-card" key={id}>
@@ -30,7 +23,7 @@ const BingoCard = ({
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BingoCard;
+export default BingoCard

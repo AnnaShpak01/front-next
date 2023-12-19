@@ -30,7 +30,7 @@ export const apiSlice = createApi({
         return {
           url: `/books/${id}`,
           method: 'PUT',
-          body,
+          body: data,
         }
       },
       invalidatesTags: ['Books'],
@@ -60,7 +60,7 @@ export const apiSlice = createApi({
         return {
           url: `/bingo/${id}`,
           method: 'PUT',
-          body,
+          body: data,
         }
       },
       invalidatesTags: ['Bingo'],
