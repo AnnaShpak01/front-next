@@ -168,3 +168,41 @@
     border-color: #6a5126;
   }
 }
+
+.content {
+  max-width: 1040px;
+  margin: 0 auto;
+
+  @media (max-width: 1199px) {
+    max-width: 970px;
+  }
+  @media (max-width: 991px) {
+    max-width: 760px;
+    padding: 5px;
+  }
+
+  &__interactive {
+    padding-left: 40px;
+    @media (max-width: 1199px) {
+      padding-left: 20px;
+    }
+    @media (max-width: 991px) {
+      padding-left: 0;
+      padding-top: 20px;
+    }
+
+    form {
+      min-width: 350px;
+      background-color: #d8bb9d;
+
+      @media (max-width: 767px) {
+        min-width: unset;
+        padding: 10px !important;
+
+        label {
+          font-size: 12px !important;
+        }
+      }
+    }
+  }
+}

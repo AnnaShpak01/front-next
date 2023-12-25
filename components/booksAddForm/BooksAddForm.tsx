@@ -6,6 +6,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { useGetFiltersQuery } from '../../api/apiSlice'
 import { useCreateBookMutation } from '../../api/apiSlice'
 import { InitStateType } from '../reducers/filters'
+import styles from './booksAddForm.module.scss'
 
 type FilterType = {
   id: string
@@ -76,16 +77,18 @@ const BooksAddForm = () => {
   }
 
   return (
-    <form className="bordered p-4 shadow-lg rounded" onSubmit={onSubmitHandler}>
-      <div className="mb-3">
-        <label htmlFor="name" className="form-label fs-5">
+    <form
+      className={` ${styles.bordered} ${styles['p-4']}  ${styles['shadow-lg']} ${styles.rounded}`}
+      onSubmit={onSubmitHandler}>
+      <div className={styles['mb-3']}>
+        <label htmlFor="name" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Name of the book{' '}
         </label>
         <input
           required
           type="text"
           name="name"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="name"
           placeholder="Name of the book"
           value={bookName}
@@ -93,15 +96,15 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className="mb-3">
-        <label htmlFor="author" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="author" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Author
         </label>
         <input
           required
           type="text"
           name="author"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="author"
           placeholder="Author of the book"
           value={bookAuthor}
@@ -109,14 +112,14 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className="mb-3">
-        <label htmlFor="description" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="description" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Description
         </label>
         <textarea
           required
           name="description"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="description"
           placeholder="Short summary about book"
           style={{ height: '130px' }}
@@ -125,30 +128,30 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className="mb-3">
-        <label htmlFor="genre" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="genre" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Genre
         </label>
         <input
           required
           type="text"
           name="genre"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="genre"
           placeholder="Genre of book"
           value={bookGenre}
           onChange={(e) => setBookGenre(e.target.value)}
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="cover" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="cover" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Cover
         </label>
         <input
           required
           type="text"
           name="cover"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="cover"
           placeholder="Link on image"
           value={bookImg}
@@ -156,13 +159,13 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className="mb-3">
-        <label htmlFor="status" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="status" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Status
         </label>
         <select
           required
-          className="form-select bordered"
+          className={` ${styles['form-select']} ${styles.bordered} `}
           id="status"
           name="status"
           value={bookStatus}
@@ -171,28 +174,28 @@ const BooksAddForm = () => {
           {renderFilters(filters, filtersLoadingStatus)}
         </select>
       </div>
-      <div className="mb-3">
-        <label htmlFor="pages" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="pages" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Pages
         </label>
         <input
           required
           name="pages"
           type="text"
-          className="form-control bordered"
+          className={` ${styles['form-control']} ${styles.bordered} `}
           id="pages"
           placeholder="Count of pages"
           value={bookPages}
           onChange={(e) => setBookPages(parseInt(e.target.value))}
         />
       </div>
-      <div className="mb-3">
-        <label htmlFor="element" className="form-label fs-5">
+      <div className={styles['mb-3']}>
+        <label htmlFor="element" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Color
         </label>
         <select
           required
-          className="form-select bordered"
+          className={` ${styles['form-select']} ${styles.bordered} `}
           id="element"
           name="element"
           value={bookColor}
@@ -209,7 +212,7 @@ const BooksAddForm = () => {
         </select>
       </div>
 
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className={` ${styles.btn} ${styles['btn-primary']}`}>
         Add Book
       </button>
     </form>

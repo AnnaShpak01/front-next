@@ -1,22 +1,14 @@
 'use client'
 
-import styles from './page.module.css'
 import React from 'react'
-import ReactDOM from 'react-dom'
-import { Provider } from 'react-redux'
 
 import App from '../components/app/App'
-import store from '../components/store'
-
-//import './page.module.css'
+import BooksPage from '../components/booksPage/BooksPage'
 
 export default function Home() {
-  if (typeof document === 'undefined') {
-    return null
-  }
   return (
-    <Provider store={store}>
-      <App />
-    </Provider>
+    <App>
+      <BooksPage />
+    </App>
   )
 }

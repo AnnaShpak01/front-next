@@ -7,6 +7,7 @@ import { FiltersType, InitStateType } from '../reducers/filters'
 import { filtersChanged, fetchFilters } from './filtersSlice'
 import Spinner from '../spinner/Spinner'
 import { useGetFiltersQuery } from '../../api/apiSlice'
+import styles from './bookfilters.module.scss'
 
 const BooksFilters = () => {
   const { filtersLoadingStatus, activeFilter } = useSelector((state: any) => state.filters)
@@ -21,15 +22,19 @@ const BooksFilters = () => {
   if (filtersLoadingStatus === 'loading') {
     return <Spinner />
   } else if (filtersLoadingStatus === 'error') {
-    return <h5 className="text-center mt-5">Loading Error</h5>
+    return <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Loading Error</h5>
   }
 
   return (
-    <div className=" shadow-lg mb-4 rounded bordered">
-      <div className="card-body centered-intro rounded">
-        <p className="card-text filters-label">Filter by status</p>
-        <div className="btn-group filters-block bordered rounded">
-          {filters.length === 0 && <h5 className="text-center mt-5">Filters no founded</h5>}
+    <div
+      className={` ${styles['shadow-lg']} ${styles['mb-4']} ${styles.rounded} ${styles['bordered']}`}>
+      <div className={` ${styles['card-body']} ${styles['centered-intro']}  ${styles.rounded}`}>
+        <p className={` ${styles['card-text']} ${styles['filters-label']}`}>Filter by status</p>
+        <div
+          className={` ${styles['btn-group ']} ${styles['filters-block']}  ${styles.bordered}  ${styles.rounded}`}>
+          {filters.length === 0 && (
+            <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Filters no founded</h5>
+          )}
           {filters.length > 0 &&
             filters.map((item: FiltersType) => {
               const btnClass = classNames('btn', {

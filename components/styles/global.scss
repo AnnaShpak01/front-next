@@ -164,17 +164,3 @@ h4 {
     }
   }
 }
-
-@media (max-width: 991px) {
-  .container {
-    padding: 0 30px;
-    max-width: unset !important;
-  }
-}
-
-@media (max-width: 767px) {
-  .container {
-    padding: 0 10px;
-    max-width: unset !important;
-  }
-}
