@@ -7,6 +7,7 @@ import { BookType } from '../reducers/books'
 import { useGetBooksQuery, useDeleteBookMutation } from '../../api/apiSlice'
 import BooksListItem from '../booksListItem/BooksListItem'
 import Spinner from '../spinner/Spinner'
+import styles from './bookslist.module.scss'
 
 const BooksList = () => {
   const { data: books = [], isLoading, isError } = useGetBooksQuery('Books')
@@ -32,20 +33,20 @@ const BooksList = () => {
   if (isLoading) {
     return <Spinner />
   } else if (isError) {
-    return <h5 className="text-center mt-5">Loading error</h5>
+    return <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Loading error</h5>
   }
 
   return (
-    <TransitionGroup component="div" className={'body-of-table'}>
+    <TransitionGroup component="div">
       {filteredBooks.length === 0 && (
-        <CSSTransition timeout={0} classNames="hero">
-          <h5 className="text-center mt-5">No Books yet </h5>
+        <CSSTransition timeout={0}>
+          <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>No Books yet </h5>
         </CSSTransition>
       )}
       {filteredBooks.length !== 0 &&
         filteredBooks.map((item: BookType) => {
           return (
-            <CSSTransition key={item.id} timeout={500} classNames="hero">
+            <CSSTransition key={item.id} timeout={500}>
               <BooksListItem {...item} onDelete={() => onDelete(item.id)} />
             </CSSTransition>
           )

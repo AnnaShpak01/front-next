@@ -15,7 +15,7 @@ const Shelves = () => {
   }, [books])
 
   useEffect(() => {
-    bindModal('.card', '.popup_engineer', '.popup_engineer .popup_close')
+    //  bindModal('.card', '.popup_engineer', '.popup_engineer .popup_close')
   })
   const onDragStart = (evt: DragEvent) => {
     let element = evt.currentTarget as Element
