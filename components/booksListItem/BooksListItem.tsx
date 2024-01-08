@@ -21,7 +21,9 @@ const BooksListItem = ({ name, author, genre, pages, status, onDelete }: BookIte
         <span
           onClick={onDelete}
           className={` ${styles.badge}  ${styles.bordered}  ${styles['rounded-pill']}`}>
-          <button type="button" className={styles['btn-close']} aria-label="Close"></button>
+          <button type="button" className={styles['btn-close']} aria-label="Close">
+            X
+          </button>
         </span>
       </div>
     </div>

@@ -78,9 +78,9 @@ const BooksAddForm = () => {
 
   return (
     <form
-      className={` ${styles.bordered} ${styles['p-4']}  ${styles['shadow-lg']} ${styles.rounded}`}
+      className={` ${styles.bordered} ${styles['p-4']}  ${styles.form} ${styles['shadow-lg']} ${styles.rounded}`}
       onSubmit={onSubmitHandler}>
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="name" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Name of the book{' '}
         </label>
@@ -96,7 +96,7 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="author" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Author
         </label>
@@ -112,7 +112,7 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="description" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Description
         </label>
@@ -128,7 +128,7 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="genre" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Genre
         </label>
@@ -143,7 +143,7 @@ const BooksAddForm = () => {
           onChange={(e) => setBookGenre(e.target.value)}
         />
       </div>
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="cover" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Cover
         </label>
@@ -159,7 +159,7 @@ const BooksAddForm = () => {
         />
       </div>
 
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="status" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Status
         </label>
@@ -174,7 +174,7 @@ const BooksAddForm = () => {
           {renderFilters(filters, filtersLoadingStatus)}
         </select>
       </div>
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="pages" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Pages
         </label>
@@ -189,7 +189,7 @@ const BooksAddForm = () => {
           onChange={(e) => setBookPages(parseInt(e.target.value))}
         />
       </div>
-      <div className={styles['mb-3']}>
+      <div className={` ${styles['mb-3']} ${styles.formline} `}>
         <label htmlFor="element" className={`${styles['form-label']} ${styles['fs-5']}`}>
           Color
         </label>

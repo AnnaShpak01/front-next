@@ -8,7 +8,7 @@ const BingoPage = () => {
   const [updateBingo] = useUpdateBingoMutation()
 
   return (
-    <div className="bingo-cards-wrapper">
+    <div className={styles['bingo-cards-wrapper']}>
       {bingo.length === 0 && (
         <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Bingo no founded</h5>
       )}

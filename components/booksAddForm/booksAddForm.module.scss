@@ -2,6 +2,10 @@
   border: 1px solid #6a5126 !important;
 }
 
+.form {
+  margin-bottom: 20px;
+}
+
 .p-4 {
   padding: 1.5rem;
 }
@@ -15,20 +19,34 @@
 }
 
 .mb-3 {
-  margin-bottom: 1.5rem;
+  margin-bottom: 15px;
 }
 
 .form-label {
   margin-bottom: 0.5rem;
-}
-
-.fs-5 {
-  font-size: 1.25rem !important;
+  margin-right: 10px;
+  display: flex;
+  width: 100%;
+  font-size: 17px;
+  text-align: left;
+  align-items: center;
 }
 
 .form-control,
 .form-select {
-  font-size: 0.8rem;
+  font-size: 15px;
+  display: flex;
+  width: calc(100% - 20px);
+  border-radius: 0.25rem;
+  padding: 7px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.form-select {
+  width: calc(100% - 5px);
 }
 
 .btn {
@@ -56,4 +74,13 @@
 .btn-primary:focus {
   background-color: #6a5126;
   border-color: #6a5126;
+  padding: 10px;
+  color: #fff;
+  border-radius: 0.25rem;
+  box-shadow: none;
+  width: 150px;
+  cursor: pointer;
+  border-style: none;
+  margin-top: 15px;
+  text-align: center;
 }

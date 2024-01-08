@@ -63,7 +63,7 @@
 .h4 {
   font-family: sans-serif;
   position: absolute;
-  top: 13px;
+  top: 0;
   left: 32px;
   font-size: 12px;
   text-transform: uppercase;
@@ -113,7 +113,7 @@
     width: 42%;
     background: hsl(220, 23%, 97%);
     height: max-content;
-    min-height: 205px;
+    min-height: 175px;
     padding: 50px 20px 20px;
     background-image: url('../../components/img/treebg.jpg');
     background-repeat: repeat;
@@ -164,36 +164,6 @@
   justify-content: center;
 }
 
-.card {
-  &.red {
-    background-color: rgb(245, 72, 72);
-  }
-
-  &.blue {
-    background-color: rgb(111, 111, 218);
-  }
-
-  &.yellow {
-    background-color: rgb(245, 245, 102);
-  }
-
-  &.green {
-    background-color: rgb(76, 214, 76);
-  }
-
-  &.brown {
-    background-color: rgb(150, 120, 93);
-  }
-  &.pink {
-    background-color: #ee8bb1;
-  }
-  &.violet {
-    background-color: rgb(161, 96, 221);
-  }
-  &.orange {
-    background-color: rgb(238, 174, 90);
-  }
-}
 /*Modals*/
 .popup,
 .popup_engineer,

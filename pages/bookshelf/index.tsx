@@ -2,7 +2,7 @@
 
 import React from 'react'
 
-import App from '../../components/app/App'
+import App from '../../components/app/_app'
 import Shelves from './Shelves'
 
 export default function Home() {

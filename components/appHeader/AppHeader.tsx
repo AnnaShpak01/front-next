@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from './appHeader.module.scss'
+import NavLink from './NavLink'
 
 const AppHeader = () => {
   return (
@@ -13,33 +14,15 @@ const AppHeader = () => {
       <nav className={styles.app__menu}>
         <ul>
           <li>
-            <Link
-              // style={({ isActive }) => ({
-              //   color: isActive ? '#6a5126' : 'rgb(164 143 122)',
-              // })}
-              href="/">
-              Books Log
-            </Link>
+            <NavLink href="/">Books Log</NavLink>
           </li>
           |
           <li>
-            <Link
-              // style={({ isActive }) => ({
-              //   color: isActive ? '#6a5126' : 'rgb(164 143 122)',
-              // })}
-              href="/bookshelf">
-              Bookshelves
-            </Link>
+            <NavLink href="/bookshelf">Bookshelves</NavLink>
           </li>
           |
           <li>
-            <Link
-              // style={({ isActive }) => ({
-              //   color: isActive ? '#6a5126' : 'rgb(164 143 122)',
-              // })}
-              href="/challenges">
-              Challenges
-            </Link>
+            <NavLink href="/challenges">Challenges</NavLink>
           </li>
         </ul>
       </nav>

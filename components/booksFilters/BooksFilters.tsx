@@ -37,9 +37,10 @@ const BooksFilters = () => {
           )}
           {filters.length > 0 &&
             filters.map((item: FiltersType) => {
-              const btnClass = classNames('btn', {
-                active: item.name === activeFilter,
-              })
+              const btnClass = classNames(
+                styles.btn,
+                item.name === activeFilter ? styles.active : ''
+              )
 
               return (
                 <button
