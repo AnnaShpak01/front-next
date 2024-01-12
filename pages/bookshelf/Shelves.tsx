@@ -1,22 +1,23 @@
 'use client'
 
 import { useEffect, useMemo } from 'react'
-import { useGetBooksQuery, useUpdateBookMutation } from '../../api/apiSlice'
 import { BookType } from '../../components/reducers/books'
 import styles from './bookshelf.module.scss'
 
-const Shelves = () => {
-  const { data: books = [] } = useGetBooksQuery('Books')
-  const [updateBook] = useUpdateBookMutation()
+type ShelvesPageProps = {
+  booksData: BookType[]
+  updateBook: (id: string, updatedData: BookType) => void
+}
 
+const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
   const shelves = useMemo(() => {
-    const filteredBooks = books.slice()
+    const filteredBooks = booksData.slice()
     return filteredBooks
-  }, [books])
+  }, [booksData])
 
-  useEffect(() => {
-    //  bindModal('.card', '.popup_engineer', '.popup_engineer .popup_close')
-  })
+  // useEffect(() => {
+  //   bindModal('.card', '.popup_engineer', '.popup_engineer .popup_close')
+  // })
   const onDragStart = (evt: DragEvent) => {
     let element = evt.currentTarget as Element
     element?.classList.add('dragged')
@@ -54,7 +55,7 @@ const Shelves = () => {
     let data = evt.dataTransfer?.getData('text/plain')
     shelves.map((shelf: BookType) => {
       if (shelf.id.toString() === data?.toString()) {
-        updateBook({ ...shelf, status: newStatus })
+        updateBook(shelf.id, { ...shelf, status: newStatus })
         return { ...shelf, status: newStatus }
       } else {
         return shelf
@@ -62,41 +63,41 @@ const Shelves = () => {
     })
   }
 
-  const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string) => {
-    const trigger: any = document.querySelectorAll(triggerSelector),
-      modal: any = document.querySelector(modalSelector),
-      close: any = document.querySelector(closeSelector),
-      intro: any = document.querySelector('#intro')
+  // const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string) => {
+  //   const trigger: any = document.querySelectorAll(triggerSelector),
+  //     modal: any = document.querySelector(modalSelector),
+  //     close: any = document.querySelector(closeSelector),
+  //     intro: any = document.querySelector('#intro')
 
-    trigger.forEach((item: HTMLElement) => {
-      item.addEventListener('dblclick', (e: Event) => {
-        if (e.target) {
-          e.preventDefault()
-        }
-        let showShelf = shelves.find((shelf: BookType) => shelf.id === item.id)
-        intro.innerHTML = `
-            <img class= '${styles.pic}' src='${showShelf.imgsrc}'></div>
-            <div class='${styles['book-name']}'> ${showShelf.name} </div>
-            <div class='${styles['book-author']}'>${showShelf.author}</div>
-            <div class='${styles['book-description']}'>${showShelf.description}</div>
-            `
-        modal.style.display = 'block'
-        document.body.style.overflow = 'hidden'
-      })
-    })
+  //   trigger.forEach((item: HTMLElement) => {
+  //     item.addEventListener('dblclick', (e: MouseEvent) => {
+  //       if (e.target) {
+  //         e.preventDefault()
+  //       }
+  //       let showShelf = shelves.find((shelf: BookType) => shelf.id === item.id)
+  //       intro.innerHTML = `
+  //           <img class= '${styles.pic}' src='${showShelf?.imgsrc}'></div>
+  //           <div class='${styles['book-name']}'> ${showShelf?.name} </div>
+  //           <div class='${styles['book-author']}'>${showShelf?.author}</div>
+  //           <div class='${styles['book-description']}'>${showShelf?.description}</div>
+  //           `
+  //       modal.style.display = 'block'
+  //       document.body.style.overflow = 'hidden'
+  //     })
+  //   })
 
-    close.addEventListener('click', () => {
-      modal.style.display = 'none'
-      document.body.style.overflow = ''
-    })
+  //   close?.addEventListener('click', () => {
+  //     modal.style.display = 'none'
+  //     document.body.style.overflow = ''
+  //   })
 
-    modal.addEventListener('click', (e: Event) => {
-      if (e.target === modal) {
-        modal.style.display = 'none'
-        document.body.style.overflow = ''
-      }
-    })
-  }
+  //   modal?.addEventListener('click', (e: Event) => {
+  //     if (e.target === modal) {
+  //       modal.style.display = 'none'
+  //       document.body.style.overflow = ''
+  //     }
+  //   })
+  // }
 
   const shelfForBook = (
     classType: string,

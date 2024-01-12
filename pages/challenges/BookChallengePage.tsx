@@ -1,8 +1,15 @@
+import { BingoType } from 'components/reducers/bingo'
 import AlphabetChallenge from './AlphabetChallenge'
 import BingoPage from './BingoPage'
 import styles from './challenges.module.scss'
 
-const BookChallengePage = () => {
+const BookChallengePage = ({
+  bingoData,
+  updateBingo,
+}: {
+  bingoData?: BingoType[]
+  updateBingo: (id: string, updatedData: BingoType) => void
+}) => {
   return (
     <div className={`${styles['site-wrapper']} ${styles['books-challenge-page']}`}>
       <section className={styles['tabs-wrapper']}>
@@ -14,7 +21,9 @@ const BookChallengePage = () => {
                 {' '}
                 Bingo Challenge
               </label>
-              <div className={styles.tab}>{<BingoPage />}</div>
+              <div className={styles.tab}>
+                {<BingoPage bingoData={bingoData} updateBingo={updateBingo} />}
+              </div>
               <input type="radio" name="tabs" id="tab2" />
               <label htmlFor="tab2" className={styles['last-label']}>
                 {' '}

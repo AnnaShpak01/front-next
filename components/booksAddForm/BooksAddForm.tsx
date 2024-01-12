@@ -3,19 +3,17 @@
 import { useState } from 'react'
 import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { useGetFiltersQuery } from '../../api/apiSlice'
-import { useCreateBookMutation } from '../../api/apiSlice'
-import { InitStateType } from '../reducers/filters'
+import { FiltersType, InitStateType } from '../reducers/filters'
 import styles from './booksAddForm.module.scss'
+import { addBookItem, updateBookItem } from 'api/api'
 
-type FilterType = {
-  id: string
-  name: string
-  label: string
-  className: string
-}
-
-const BooksAddForm = () => {
+const BooksAddForm = ({
+  filterData,
+  updateList,
+}: {
+  filterData: FiltersType[]
+  updateList: Function
+}) => {
   const [bookName, setBookName] = useState<string>('')
   const [bookDescr, setBookDescr] = useState<string>('')
   const [bookAuthor, setBookAuthor] = useState<string>('')
@@ -25,12 +23,11 @@ const BooksAddForm = () => {
   const [bookPages, setBookPages] = useState<number>(0)
   const [bookImg, setBookImg] = useState<string>('')
 
-  const [createBook] = useCreateBookMutation()
-  const { data: filters = [] } = useGetFiltersQuery('Filters')
   const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
 
   const onSubmitHandler = (e: any) => {
     e.preventDefault()
+
     const newBook = {
       id: uuidv4(),
       name: bookName,
@@ -42,9 +39,14 @@ const BooksAddForm = () => {
       imgsrc: bookImg,
       pages: bookPages,
     }
+    updateList(newBook)
 
-    createBook(newBook).unwrap()
-
+    // Використовуємо вашу функцію для додавання книги
+    addBookItem(newBook)
+      .then((response) => {})
+      .catch((error) => {
+        console.error('Failed to add a new book', error)
+      })
     setBookName('')
     setBookDescr('')
     setBookAuthor('')
@@ -53,9 +55,10 @@ const BooksAddForm = () => {
     setBookImg('')
     setBookPages(0)
     setBookStatus('')
+    // ...
   }
 
-  const renderFilters = (filters: FilterType[], status: string) => {
+  const renderFilters = (filters: FiltersType[], status: string) => {
     if (status === 'loading') {
       return <option>Loading of elements</option>
     } else if (status === 'error') {
@@ -171,7 +174,7 @@ const BooksAddForm = () => {
           value={bookStatus}
           onChange={(e) => setBookStatus(e.target.value)}>
           <option value="">Status of reading...</option>
-          {renderFilters(filters, filtersLoadingStatus)}
+          {renderFilters(filterData, filtersLoadingStatus)}
         </select>
       </div>
       <div className={` ${styles['mb-3']} ${styles.formline} `}>
