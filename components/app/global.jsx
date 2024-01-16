@@ -126,6 +126,13 @@ const GlobalStyle = createGlobalStyle`
   text-align: left;
 }
 
+.ReactModal__Content.ReactModal__Content--after-open{
+  inset: inherit;
+  width: 50%;
+  margin: auto;
+  height: min-content;
+}
+
 `
 
 export default GlobalStyle

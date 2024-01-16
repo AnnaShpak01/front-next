@@ -1,8 +1,9 @@
 'use client'
 
-import { useEffect, useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { BookType } from '../../components/reducers/books'
 import styles from './bookshelf.module.scss'
+import Modal from 'react-modal'
 
 type ShelvesPageProps = {
   booksData: BookType[]
@@ -10,14 +11,14 @@ type ShelvesPageProps = {
 }
 
 const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
+  const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [selectedBook, setSelectedBook] = useState<BookType | null>(null)
+
   const shelves = useMemo(() => {
     const filteredBooks = booksData.slice()
     return filteredBooks
   }, [booksData])
 
-  // useEffect(() => {
-  //   bindModal('.card', '.popup_engineer', '.popup_engineer .popup_close')
-  // })
   const onDragStart = (evt: DragEvent) => {
     let element = evt.currentTarget as Element
     element?.classList.add('dragged')
@@ -63,41 +64,17 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
     })
   }
 
-  // const bindModal = (triggerSelector: string, modalSelector: string, closeSelector: string) => {
-  //   const trigger: any = document.querySelectorAll(triggerSelector),
-  //     modal: any = document.querySelector(modalSelector),
-  //     close: any = document.querySelector(closeSelector),
-  //     intro: any = document.querySelector('#intro')
+  const openModal = (bookId: string) => {
+    const showShelf = shelves.find((shelf: BookType) => shelf.id === bookId)
+    if (showShelf) {
+      setSelectedBook(showShelf)
+      setModalIsOpen(true)
+    }
+  }
 
-  //   trigger.forEach((item: HTMLElement) => {
-  //     item.addEventListener('dblclick', (e: MouseEvent) => {
-  //       if (e.target) {
-  //         e.preventDefault()
-  //       }
-  //       let showShelf = shelves.find((shelf: BookType) => shelf.id === item.id)
-  //       intro.innerHTML = `
-  //           <img class= '${styles.pic}' src='${showShelf?.imgsrc}'></div>
-  //           <div class='${styles['book-name']}'> ${showShelf?.name} </div>
-  //           <div class='${styles['book-author']}'>${showShelf?.author}</div>
-  //           <div class='${styles['book-description']}'>${showShelf?.description}</div>
-  //           `
-  //       modal.style.display = 'block'
-  //       document.body.style.overflow = 'hidden'
-  //     })
-  //   })
-
-  //   close?.addEventListener('click', () => {
-  //     modal.style.display = 'none'
-  //     document.body.style.overflow = ''
-  //   })
-
-  //   modal?.addEventListener('click', (e: Event) => {
-  //     if (e.target === modal) {
-  //       modal.style.display = 'none'
-  //       document.body.style.overflow = ''
-  //     }
-  //   })
-  // }
+  const closeModal = () => {
+    setModalIsOpen(false)
+  }
 
   const shelfForBook = (
     classType: string,
@@ -125,7 +102,8 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
                     id={book.id}
                     draggable
                     onDragStart={(e: any) => onDragStart(e)}
-                    onDragEnd={(e: any) => onDragEnd(e)}>
+                    onDragEnd={(e: any) => onDragEnd(e)}
+                    onDoubleClick={() => openModal(book.id)}>
                     <div className={styles.card_right}>
                       <div className={styles.name}>{book.name}</div>
                     </div>
@@ -155,16 +133,25 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
         {shelfForBook('done', 'Completed', 'Completed', done)}
       </div>
       <div className={styles.popup_engineer}>
-        <div className={styles.popup_dialog}>
-          <div className={`${styles.popup_content} ${styles['text-center']}`}>
-            <button type="button" className={styles.popup_close}>
-              <strong>&times;</strong>
-            </button>
-            <div className={styles.popup_form}>
-              <div id="intro"></div>
+        <Modal
+          isOpen={modalIsOpen}
+          onRequestClose={closeModal}
+          contentLabel="Book Modal"
+          ariaHideApp={false}>
+          {selectedBook && (
+            <div className={styles.popup_intro}>
+              <button type="button" className={styles.popup_close} onClick={closeModal}>
+                <strong>&times;</strong>
+              </button>
+              <div className={styles.popup_form}>
+                <img className={styles.pic} src={selectedBook.imgsrc} alt={selectedBook.name} />
+                <div className={styles['book-name']}>{selectedBook.name}</div>
+                <div className={styles['book-author']}>{selectedBook.author}</div>
+                <div className={styles['book-description']}>{selectedBook.description}</div>
+              </div>
             </div>
-          </div>
-        </div>
+          )}
+        </Modal>
       </div>
     </div>
   )

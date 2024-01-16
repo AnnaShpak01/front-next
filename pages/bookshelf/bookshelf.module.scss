@@ -199,6 +199,10 @@
   opacity: 1;
 }
 
+.popup_intro {
+  overflow: inherit;
+}
+
 .popup_content,
 .popup_engineer_content,
 .popup_calc_end_content {
@@ -216,12 +220,13 @@
 .popup_engineer_close,
 .popup_calc_end_close {
   position: absolute;
-  top: -2.2rem;
-  right: -5rem;
+  top: 0;
+  right: 10px;
   font-size: 4rem;
-  color: #ffffff;
+  color: #000;
   border: none;
   background: transparent;
+  cursor: pointer;
 }
 
 #intro {
