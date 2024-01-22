@@ -4,17 +4,30 @@ import React, { useState } from 'react'
 
 import App from '../../components/app/_app'
 import Shelves from './Shelves'
-import { fetchDataServer, updateBookItem } from 'api/api'
+//import { fetchDataServer, updateBookItem } from '@api/api'
 import { BookType } from 'components/reducers/books'
 
-export default function Home({ booksData }: { booksData: BookType[] }) {
-  const [books, setBooks] = useState(booksData)
+export default function Home({ initialBooksData }: { initialBooksData: BookType[] }) {
+  const [books, setBooks] = useState(initialBooksData)
 
   const updateBook = async (id: string, updatedData: BookType) => {
     try {
-      const updatedBookItem = await updateBookItem(id, updatedData)
-      const updatedBookData = books.map((item) =>
-        item.id === updatedBookItem.id ? updatedBookItem : item
+      const response = await fetch(`/api/books/update?id=${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedData),
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to update book item')
+      }
+
+      const data: BookType = await response.json()
+
+      const updatedBookData: BookType[] = books.map((item: BookType) =>
+        item.id === id ? { ...item, ...data } : item
       )
       setBooks(updatedBookData)
     } catch (error) {
@@ -28,20 +41,22 @@ export default function Home({ booksData }: { booksData: BookType[] }) {
   )
 }
 
-export const getServerSideProps = async () => {
+export async function getServerSideProps() {
   try {
-    const booksData = await fetchDataServer('/books')
+    const response = await fetch('http://localhost:3000/api/books')
+    const initialBooksData: BookType[] = await response.json()
 
     return {
       props: {
-        booksData,
+        initialBooksData,
       },
     }
   } catch (error) {
-    console.error('Error fetching data', error)
+    console.error('Error fetching initial book data:', error)
+
     return {
       props: {
-        booksData: [],
+        initialBooksData: [],
       },
     }
   }

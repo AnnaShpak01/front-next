@@ -7,7 +7,6 @@ import { BookType } from '../reducers/books'
 import BooksListItem from '../booksListItem/BooksListItem'
 import Spinner from '../spinner/Spinner'
 import styles from './bookslist.module.scss'
-import { deleteBookItem } from 'api/api'
 
 const BooksList = ({
   booksData,
@@ -30,12 +29,17 @@ const BooksList = ({
 
   const onDelete = async (id: string) => {
     try {
-      await deleteBookItem(id)
-      // Оновіть список книг після успішного видалення
-      const updatedBookData = booksData?.filter((book) => book.id !== id)
-      updateDeleteList(updatedBookData)
+      const response = await fetch(`/api/books/delete?id=${id}`, {
+        method: 'DELETE',
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to delete book')
+      }
+
+      updateDeleteList(id)
     } catch (error) {
-      console.error('Error deleting book:', error)
+      console.error('Failed to delete book', error)
     }
   }
   // if (isLoading) {
@@ -51,7 +55,8 @@ const BooksList = ({
           <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>No Books yet </h5>
         </CSSTransition>
       )}
-      {filteredBooks.length !== 0 &&
+      {Array.isArray(filteredBooks) &&
+        filteredBooks.length !== 0 &&
         filteredBooks.map((item: BookType) => {
           return (
             <CSSTransition key={item.id} timeout={500}>

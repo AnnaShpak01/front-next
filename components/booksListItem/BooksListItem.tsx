@@ -18,13 +18,14 @@ const BooksListItem = ({ name, author, genre, pages, status, onDelete }: BookIte
       <div className={styles['card-pages']}>{pages}</div>
       <div className={styles['card-status']}>{status}</div>
       <div>
-        <span
+        <button
+          type="button"
           onClick={onDelete}
-          className={` ${styles.badge}  ${styles.bordered}  ${styles['rounded-pill']}`}>
-          <button type="button" className={styles['btn-close']} aria-label="Close">
+          className={`${styles.badge} ${styles.bordered} ${styles['rounded-pill']}`}>
+          <span className={styles['btn-close']} aria-label="Close">
             X
-          </button>
-        </span>
+          </span>
+        </button>
       </div>
     </div>
   )

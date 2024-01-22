@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit'
 import filters from '../booksFilters/filtersSlice'
 import { bingoSlice } from '../../pages/challenges/bingoSlice'
-import { apiSlice } from '../../api/apiSlice'
+import { apiSlice } from '../../pages/api/apiSlice'
 import { actionsTypes } from '../reducers/index'
 
 interface nextType {

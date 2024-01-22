@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { FiltersType, InitStateType } from '../reducers/filters'
 import { filtersChanged, fetchFilters } from './filtersSlice'
 import Spinner from '../spinner/Spinner'
-import { useGetFiltersQuery } from '../../api/apiSlice'
+import { useGetFiltersQuery } from '../../pages/api/apiSlice'
 import styles from './bookfilters.module.scss'
 
 const BooksFilters = ({ filterData }: { filterData?: FiltersType[] }) => {

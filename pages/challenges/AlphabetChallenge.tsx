@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { useGetBooksQuery } from '../../api/apiSlice'
+import { useGetBooksQuery } from '../api/apiSlice'
 import { BookType } from '../../components/reducers/books'
 import styles from './challenges.module.scss'
 

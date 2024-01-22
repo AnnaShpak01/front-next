@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { FiltersType, InitStateType } from '../reducers/filters'
 import styles from './booksAddForm.module.scss'
-import { addBookItem, updateBookItem } from 'api/api'
 
 const BooksAddForm = ({
   filterData,
@@ -25,7 +24,7 @@ const BooksAddForm = ({
 
   const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
 
-  const onSubmitHandler = (e: any) => {
+  const onSubmitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
     const newBook = {
@@ -39,14 +38,27 @@ const BooksAddForm = ({
       imgsrc: bookImg,
       pages: bookPages,
     }
-    updateList(newBook)
 
-    // Використовуємо вашу функцію для додавання книги
-    addBookItem(newBook)
-      .then((response) => {})
-      .catch((error) => {
-        console.error('Failed to add a new book', error)
+    try {
+      const response = await fetch('/api/books/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newBook),
       })
+
+      if (!response.ok) {
+        throw new Error('Failed to add a new book')
+      }
+
+      const addedBook = await response.json()
+
+      updateList(newBook)
+    } catch (error) {
+      console.error('Failed to add a new book', error)
+    }
+
     setBookName('')
     setBookDescr('')
     setBookAuthor('')
@@ -55,7 +67,6 @@ const BooksAddForm = ({
     setBookImg('')
     setBookPages(0)
     setBookStatus('')
-    // ...
   }
 
   const renderFilters = (filters: FiltersType[], status: string) => {

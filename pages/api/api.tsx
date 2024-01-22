@@ -57,7 +57,7 @@ export const deleteBookItem = async (id: string) => {
     throw new Error('Failed to delete book item')
   }
 
-  return id // Повертайте ідентифікатор видаленої книги
+  return id
 }
 
 export const updateBingoItem = async (id: string, updatedData: BingoType) => {
