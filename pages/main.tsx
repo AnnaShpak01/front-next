@@ -1,9 +1,8 @@
 'use client'
-
+import { GetServerSideProps } from 'next'
 import React, { useCallback, useState } from 'react'
 import App from '../components/app/_app'
 import BooksPage from '../components/booksPage/BooksPage'
-//import { fetchDataServer, updateBookItem } from 'api/api'
 import { FiltersType } from 'components/reducers/filters'
 import { BookType } from 'components/reducers/books'
 
@@ -16,17 +15,6 @@ export default function Home({
 }) {
   const [books, setBooks] = useState(initialBooksData)
 
-  // const updateBooks = async (id: string, updatedData: BookType) => {
-  //   try {
-  //     const updatedBookItem = await updateBookItem(id, updatedData)
-  //     const updatedBookData = books.map((item) =>
-  //       item.id === updatedBookItem.id ? updatedBookItem : item
-  //     )
-  //     setBooks(updatedBookData)
-  //   } catch (error) {
-  //     console.error('Error updating bingo item:', error)
-  //   }
-  // }
   const updateList = (newBook: BookType) => {
     setBooks((prevBooks) => [...prevBooks, newBook])
   }
@@ -50,7 +38,7 @@ export default function Home({
   )
 }
 
-export async function getServerSideProps() {
+export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const [booksResponse, filtersResponse] = await Promise.all([
       fetch('http://localhost:3000/api/books'),

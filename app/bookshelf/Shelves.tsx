@@ -15,7 +15,7 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
   const [selectedBook, setSelectedBook] = useState<BookType | null>(null)
 
   const shelves = useMemo(() => {
-    const filteredBooks = booksData.slice()
+    const filteredBooks = booksData?.slice()
     return filteredBooks
   }, [booksData])
 
@@ -95,7 +95,7 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
           <div className={`${styles.container} ${styles['inner-container']}`}>
             <div className={styles.drag_column}>
               <div className={styles.drag_row}>
-                {arrBook.map((book: BookType) => (
+                {arrBook?.map((book: BookType) => (
                   <div
                     className={`${styles.card} ${book.color}`}
                     key={book.name}
@@ -117,10 +117,10 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
     )
   }
 
-  let pending = shelves.filter((data: BookType) => data.status === 'In Progress')
-  let done = shelves.filter((data: BookType) => data.status === 'Completed')
-  let newOrder = shelves.filter((data: BookType) => data.status === 'New Books')
-  let waiting = shelves.filter((data: BookType) => data.status === 'Favourites')
+  let pending = shelves?.filter((data: BookType) => data.status === 'In Progress')
+  let done = shelves?.filter((data: BookType) => data.status === 'Completed')
+  let newOrder = shelves?.filter((data: BookType) => data.status === 'New Books')
+  let waiting = shelves?.filter((data: BookType) => data.status === 'Favourites')
 
   return (
     <div className={styles.container}>

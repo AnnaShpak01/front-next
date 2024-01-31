@@ -40,7 +40,7 @@ const BooksAddForm = ({
     }
 
     try {
-      const response = await fetch('/api/books/create', {
+      const response = await fetch('http://localhost:3000/api/bookshelf/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

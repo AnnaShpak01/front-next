@@ -1,8 +1,11 @@
+'use client'
+
 import Link from 'next/link'
 import styles from './appHeader.module.scss'
-import NavLink from './NavLink'
+import { usePathname } from 'next/navigation'
 
 const AppHeader = () => {
+  const pathname = usePathname()
   return (
     <header className={styles.app__header}>
       <h1 className={styles.app__title}>
@@ -14,15 +17,25 @@ const AppHeader = () => {
       <nav className={styles.app__menu}>
         <ul>
           <li>
-            <NavLink href="/">Books Log</NavLink>
+            <Link href="/" className={`link ${pathname === '/' ? styles.active : ''}`}>
+              Books Log
+            </Link>
           </li>
           |
           <li>
-            <NavLink href="/bookshelf">Bookshelves</NavLink>
+            <Link
+              href="/bookshelf"
+              className={`link ${pathname === '/bookshelf' ? styles.active : ''}`}>
+              Bookshelves
+            </Link>
           </li>
           |
           <li>
-            <NavLink href="/challenges">Challenges</NavLink>
+            <Link
+              href="/challenges"
+              className={`link ${pathname === '/challenges' ? styles.active : ''}`}>
+              Challenges
+            </Link>
           </li>
         </ul>
       </nav>

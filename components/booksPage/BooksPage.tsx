@@ -4,6 +4,7 @@ import BooksFilters from '../booksFilters/BooksFilters'
 import styles from './booksPage.module.scss'
 import { BookType } from 'components/reducers/books'
 import { FiltersType } from 'components/reducers/filters'
+import { Suspense } from 'react'
 
 const BooksPage = ({
   booksData,
@@ -29,7 +30,9 @@ const BooksPage = ({
             <div>Status</div>
             <div>Delete</div>
           </div>
-          <BooksList booksData={booksData} updateDeleteList={updateDeleteList} />
+          <Suspense fallback={<p>Loading books...</p>}>
+            <BooksList booksData={booksData} updateDeleteList={updateDeleteList} />
+          </Suspense>
         </div>
       </div>
       <div className={styles.content__interactive}>
