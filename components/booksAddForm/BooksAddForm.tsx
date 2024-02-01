@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
 import { FiltersType, InitStateType } from '../reducers/filters'
 import styles from './booksAddForm.module.scss'
+import { addBook } from 'app/action'
 
 const BooksAddForm = ({
   filterData,
@@ -40,19 +41,19 @@ const BooksAddForm = ({
     }
 
     try {
-      const response = await fetch('http://localhost:3000/api/bookshelf/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(newBook),
-      })
+      // const response = await fetch('http://localhost:3000/api/bookshelf/', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(newBook),
+      //   })
 
-      if (!response.ok) {
-        throw new Error('Failed to add a new book')
-      }
+      // if (!response.ok) {
+      //   throw new Error('Failed to add a new book')
+      // }
 
-      const addedBook = await response.json()
+      const addedBook = addBook(newBook)
 
       updateList(newBook)
     } catch (error) {

@@ -1,3 +1,4 @@
+import { BookType } from 'components/reducers/books'
 import { NextApiRequest, NextApiResponse } from 'next'
 
 export async function GET() {
@@ -10,9 +11,9 @@ export async function GET() {
   }
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse) {
+export async function POST(newBookData: BookType) {
   try {
-    const newBookData = req.body
+    //const newBookData = req.body
 
     const response = await fetch('http://localhost:8080/books', {
       method: 'POST',
@@ -28,9 +29,9 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
 
     const addedBook = await response.json()
 
-    res.status(response.status).json(addedBook)
+    return addedBook
   } catch (error) {
     console.error('Error creating book:', error)
-    res.status(500).json({ error: 'Internal Server Error' })
+    // response.json({ error: 'Internal Server Error' })
   }
 }

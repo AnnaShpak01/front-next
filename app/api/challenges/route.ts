@@ -10,27 +10,18 @@ export async function GET() {
   }
 }
 
-export async function PUT(dataToUpdate: BingoType) {
-  try {
-    const response = await fetch('http://localhost:8080/bingo', {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        // Дополнительные заголовки, если необходимо
-      },
-      body: JSON.stringify(dataToUpdate),
-    })
+export async function PUT(id: string, updatedData: BingoType) {
+  const response = await fetch(`http://localhost:8080/bingo/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  })
 
-    if (!response.ok) {
-      throw new Error('Failed to update data')
-    }
-
-    // Если сервер возвращает какие-то данные в ответе, вы можете их получить так:
-    const updatedData = await response.json()
-
-    return updatedData
-  } catch (error) {
-    console.error('Error updating data:', error)
-    return null // Или возвращайте какое-то значение, которое указывает на ошибку
+  if (!response.ok) {
+    throw new Error('Failed to update bingo item')
   }
+
+  return response.json()
 }

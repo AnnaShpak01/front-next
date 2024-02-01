@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import App from '../../components/app/_app'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/reducers/bingo'
+import { PUT } from 'app/api/challenges/route'
 
 export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
@@ -23,7 +24,7 @@ export default function Home() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/challenges/id=${id}`, {
+      const response = await fetch(`http://localhost:3000/api/challenges/`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

@@ -15,7 +15,7 @@ const AlphabetChallenge = () => {
 
   for (let i = 65; i < 91; i++) {
     let book = shelves.find(
-      (item: BookType) => item.name.substr(0, 1).toUpperCase() === String.fromCharCode(i)
+      (item: BookType) => item.name?.substr(0, 1).toUpperCase() === String.fromCharCode(i)
     )
     rows[i < 78 ? 0 : 1].push(
       <div className={styles['line-alpha']} key={i}>

@@ -2,7 +2,6 @@
 
 import { useCallback, useMemo } from 'react'
 import { useSelector } from 'react-redux'
-import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import { BookType } from '../reducers/books'
 import BooksListItem from '../booksListItem/BooksListItem'
 import Spinner from '../spinner/Spinner'
@@ -49,22 +48,17 @@ const BooksList = ({
   // }
 
   return (
-    <TransitionGroup component="div">
+    <div>
+      {' '}
       {filteredBooks.length === 0 && (
-        <CSSTransition timeout={0}>
-          <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>No Books yet </h5>
-        </CSSTransition>
+        <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>No Books yet </h5>
       )}
       {Array.isArray(filteredBooks) &&
         filteredBooks.length !== 0 &&
-        filteredBooks.map((item: BookType) => {
-          return (
-            <CSSTransition key={item.id} timeout={500}>
-              <BooksListItem {...item} onDelete={() => onDelete(item.id)} />
-            </CSSTransition>
-          )
-        })}
-    </TransitionGroup>
+        filteredBooks.map((item: BookType) => (
+          <BooksListItem key={item.id} {...item} onDelete={() => onDelete(item.id)} />
+        ))}
+    </div>
   )
 }
 
