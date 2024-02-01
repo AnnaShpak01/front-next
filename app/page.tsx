@@ -7,13 +7,7 @@ import { BookType } from 'components/reducers/books'
 import App from '../components/app/_app'
 //import { GetServerSideProps } from 'next'
 
-export default function Page({
-  initialBooksData,
-  initialFiltersData,
-}: {
-  initialBooksData: BookType[]
-  initialFiltersData: FiltersType[]
-}) {
+export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])
   const [filtersData, setFilters] = useState<FiltersType[]>([])
 

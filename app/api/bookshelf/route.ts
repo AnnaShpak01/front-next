@@ -13,8 +13,6 @@ export async function GET() {
 
 export async function POST(newBookData: BookType) {
   try {
-    //const newBookData = req.body
-
     const response = await fetch('http://localhost:8080/books', {
       method: 'POST',
       headers: {
@@ -32,6 +30,21 @@ export async function POST(newBookData: BookType) {
     return addedBook
   } catch (error) {
     console.error('Error creating book:', error)
-    // response.json({ error: 'Internal Server Error' })
   }
+}
+
+export async function PUT(id: string, updatedData: BookType) {
+  const response = await fetch(`http://localhost:8080/books/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedData),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to update book item')
+  }
+
+  return response.json()
 }

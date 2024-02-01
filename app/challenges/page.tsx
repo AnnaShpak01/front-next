@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import App from '../../components/app/_app'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/reducers/bingo'
-import { PUT } from 'app/api/challenges/route'
+import { updateBingoStatus } from './action'
 
 export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
@@ -24,17 +24,21 @@ export default function Home() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
-      const response = await fetch(`http://localhost:3000/api/challenges/`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedData),
-      })
-      if (!response.ok) {
-        throw new Error('Failed to update bingo item')
-      }
-      const data: BingoType = await response.json()
+      // const response = await fetch(`http://localhost:3000/api/challenges/`, {
+      //   method: 'PUT',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(updatedData),
+      // })
+      // if (!response.ok) {
+      //   throw new Error('Failed to update bingo item')
+      // }
+      // const data: BingoType = await response.json()
+      // const updatedBingoData: BingoType[] = bingoData.map((item: BingoType) =>
+      //   item.id === id ? { ...item, ...data } : item
+      // )
+      const data: BingoType = await updateBingoStatus(id, updatedData)
       const updatedBingoData: BingoType[] = bingoData.map((item: BingoType) =>
         item.id === id ? { ...item, ...data } : item
       )
