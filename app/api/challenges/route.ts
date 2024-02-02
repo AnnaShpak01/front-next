@@ -10,18 +10,16 @@ export async function GET() {
   }
 }
 
-export async function PUT(id: string, updatedData: BingoType) {
-  const response = await fetch(`http://localhost:8080/bingo/${id}`, {
+export async function PUT(request: Request) {
+  const body = await request.json()
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+
+  return await fetch(`http://localhost:8080/bingo/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(updatedData),
+    body: JSON.stringify(body),
   })
-
-  if (!response.ok) {
-    throw new Error('Failed to update bingo item')
-  }
-
-  return response.json()
 }

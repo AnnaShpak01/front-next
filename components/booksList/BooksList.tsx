@@ -28,7 +28,7 @@ const BooksList = ({
 
   const onDelete = async (id: string) => {
     try {
-      const response = await fetch(`/api/books/delete?id=${id}`, {
+      const response = await fetch(`/api/bookshelf?id=${id}`, {
         method: 'DELETE',
       })
 

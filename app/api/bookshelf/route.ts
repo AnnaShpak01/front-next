@@ -11,14 +11,16 @@ export async function GET() {
   }
 }
 
-export async function POST(newBookData: BookType) {
+export async function POST(request: Request) {
   try {
+    const body = await request.json()
+
     const response = await fetch('http://localhost:8080/books', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newBookData),
+      body: JSON.stringify(body),
     })
 
     if (!response.ok) {
@@ -27,24 +29,31 @@ export async function POST(newBookData: BookType) {
 
     const addedBook = await response.json()
 
-    return addedBook
+    return Response.json(addedBook)
   } catch (error) {
     console.error('Error creating book:', error)
   }
 }
 
-export async function PUT(id: string, updatedData: BookType) {
-  const response = await fetch(`http://localhost:8080/books/${id}`, {
+export async function PUT(request: Request) {
+  const body = await request.json()
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
+
+  return await fetch(`http://localhost:8080/books/${id}`, {
     method: 'PUT',
     headers: {
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify(updatedData),
+    body: JSON.stringify(body),
   })
+}
 
-  if (!response.ok) {
-    throw new Error('Failed to update book item')
-  }
+export async function DELETE(request: Request) {
+  const { searchParams } = new URL(request.url)
+  const id = searchParams.get('id')
 
-  return response.json()
+  return await fetch(`http://localhost:8080/books/${id}`, {
+    method: 'DELETE',
+  })
 }

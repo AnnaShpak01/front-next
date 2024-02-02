@@ -1,10 +1,23 @@
-import { useMemo } from 'react'
-import { useGetBooksQuery } from '../../pages/api/apiSlice'
+import { useEffect, useMemo, useState } from 'react'
 import { BookType } from '../../components/reducers/books'
 import styles from './challenges.module.scss'
 
 const AlphabetChallenge = () => {
-  const { data: books = [] } = useGetBooksQuery('Books')
+  const [books, setBooksData] = useState<BookType[]>([])
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://localhost:3000/api/bookshelf')
+        const initialBingoData: BookType[] = await response.json()
+        setBooksData(initialBingoData)
+      } catch (error) {
+        console.error('Error fetching data:', error)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const shelves = useMemo(() => {
     const filteredBooks = books.slice()
