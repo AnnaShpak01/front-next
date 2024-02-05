@@ -1,8 +1,7 @@
 'use client'
 
-import { useCallback, useMemo } from 'react'
-import { useSelector } from 'react-redux'
-import { BookType } from '../reducers/books'
+import { useMemo } from 'react'
+import { BookType } from '../types'
 import BooksListItem from '../booksListItem/BooksListItem'
 import Spinner from '../spinner/Spinner'
 import styles from './bookslist.module.scss'
@@ -10,12 +9,12 @@ import styles from './bookslist.module.scss'
 const BooksList = ({
   booksData,
   updateDeleteList,
+  activeFilter,
 }: {
   booksData?: BookType[]
   updateDeleteList: Function
+  activeFilter: string
 }) => {
-  const activeFilter = useSelector((state: any) => state.filters.activeFilter)
-
   const filteredBooks = useMemo(() => {
     const filteredBooks = booksData ? booksData.slice() : []
 

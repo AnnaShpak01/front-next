@@ -1,29 +1,24 @@
 'use client'
 
-import { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import classNames from 'classnames'
-import { FiltersType, InitStateType } from '../reducers/filters'
-import { filtersChanged, fetchFilters } from './filtersSlice'
+import { FiltersType } from '../types'
 import Spinner from '../spinner/Spinner'
-import { useGetFiltersQuery } from '../../pages/api/apiSlice'
 import styles from './bookfilters.module.scss'
 
-const BooksFilters = ({ filterData }: { filterData?: FiltersType[] }) => {
-  const { filtersLoadingStatus, activeFilter } = useSelector((state: any) => state.filters)
-  // const { data: filters = [] } = useGetFiltersQuery('Filters')
-  const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(fetchFilters())
-  //   // eslint-disable-next-line
-  // }, [])
-
-  if (filtersLoadingStatus === 'loading') {
-    return <Spinner />
-  } else if (filtersLoadingStatus === 'error') {
-    return <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Loading Error</h5>
-  }
+const BooksFilters = ({
+  filterData,
+  activeFilter,
+  setActiveFilter,
+}: {
+  filterData?: FiltersType[]
+  activeFilter: string
+  setActiveFilter: (newFilter: string) => void
+}) => {
+  // if (filtersLoadingStatus === 'loading') {
+  //   return <Spinner />
+  // } else if (filtersLoadingStatus === 'error') {
+  //   return <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Loading Error</h5>
+  // }
 
   return (
     <div
@@ -48,7 +43,7 @@ const BooksFilters = ({ filterData }: { filterData?: FiltersType[] }) => {
                   key={item.name}
                   id={item.name}
                   className={btnClass}
-                  onClick={() => dispatch(filtersChanged(item.name))}>
+                  onClick={() => setActiveFilter(item.name)}>
                   {item.label}
                 </button>
               )

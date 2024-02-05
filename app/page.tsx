@@ -2,10 +2,8 @@
 
 import React, { useCallback, useEffect, useState } from 'react'
 import BooksPage from '../components/booksPage/BooksPage'
-import { FiltersType } from 'components/reducers/filters'
-import { BookType } from 'components/reducers/books'
+import { FiltersType, BookType } from 'components/types'
 import App from '../components/app/_app'
-//import { GetServerSideProps } from 'next'
 
 export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])

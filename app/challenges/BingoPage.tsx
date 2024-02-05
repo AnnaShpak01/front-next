@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { BingoType } from '../../components/reducers/bingo'
+import { BingoType } from '../../components/types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import BingoCard from './BingoCard'
 import styles from './challenges.module.scss'

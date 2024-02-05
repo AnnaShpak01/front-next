@@ -1,9 +1,8 @@
 'use client'
 
 import { useState } from 'react'
-import { useSelector } from 'react-redux'
 import { v4 as uuidv4 } from 'uuid'
-import { FiltersType, InitStateType } from '../reducers/filters'
+import { FiltersType } from '../types'
 import styles from './booksAddForm.module.scss'
 
 const BooksAddForm = ({
@@ -22,7 +21,7 @@ const BooksAddForm = ({
   const [bookPages, setBookPages] = useState<number>(0)
   const [bookImg, setBookImg] = useState<string>('')
 
-  const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
+  //const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
 
   const onSubmitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
@@ -65,12 +64,12 @@ const BooksAddForm = ({
     setBookStatus('')
   }
 
-  const renderFilters = (filters: FiltersType[], status: string) => {
-    if (status === 'loading') {
-      return <option>Loading of elements</option>
-    } else if (status === 'error') {
-      return <option>Loading Error</option>
-    }
+  const renderFilters = (filters: FiltersType[]) => {
+    // if (status === 'loading') {
+    //   return <option>Loading of elements</option>
+    // } else if (status === 'error') {
+    //   return <option>Loading Error</option>
+    // }
 
     if (filters && filters.length > 0) {
       return filters.map(({ name, label }: { name: string; label: string }) => {
@@ -181,7 +180,7 @@ const BooksAddForm = ({
           value={bookStatus}
           onChange={(e) => setBookStatus(e.target.value)}>
           <option value="">Status of reading...</option>
-          {renderFilters(filterData, filtersLoadingStatus)}
+          {renderFilters(filterData)}
         </select>
       </div>
       <div className={` ${styles['mb-3']} ${styles.formline} `}>

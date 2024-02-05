@@ -1,5 +1,3 @@
-import { BingoType } from 'components/reducers/bingo'
-
 export async function GET() {
   try {
     const initialBingoData = await fetch('http://localhost:8080/bingo')

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { BookType } from '../../components/reducers/books'
+import { BookType } from '../../components/types'
 import styles from './challenges.module.scss'
 
 const AlphabetChallenge = () => {

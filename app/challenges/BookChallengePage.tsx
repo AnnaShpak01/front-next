@@ -1,4 +1,4 @@
-import { BingoType } from 'components/reducers/bingo'
+import { BingoType } from 'components/types'
 import AlphabetChallenge from './AlphabetChallenge'
 import BingoPage from './BingoPage'
 import styles from './challenges.module.scss'

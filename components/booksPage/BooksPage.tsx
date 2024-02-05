@@ -2,9 +2,8 @@ import BooksList from '../booksList/BooksList'
 import BooksAddForm from '../booksAddForm/BooksAddForm'
 import BooksFilters from '../booksFilters/BooksFilters'
 import styles from './booksPage.module.scss'
-import { BookType } from 'components/reducers/books'
-import { FiltersType } from 'components/reducers/filters'
-import { Suspense } from 'react'
+import { BookType, FiltersType } from 'components/types'
+import { Suspense, useState } from 'react'
 
 const BooksPage = ({
   booksData,
@@ -17,10 +16,15 @@ const BooksPage = ({
   updateList: Function
   updateDeleteList: Function
 }) => {
+  const [activeFilter, setActiveFilter] = useState<string>('all')
   return (
     <div className={` ${styles.content} ${styles['book-page']}`}>
       <div>
-        <BooksFilters filterData={filterData} />
+        <BooksFilters
+          filterData={filterData}
+          activeFilter={activeFilter}
+          setActiveFilter={setActiveFilter}
+        />
         <div className={styles['table-bordered']}>
           <div className={styles['head-of-table']}>
             <div>Name of the book</div>
@@ -31,7 +35,11 @@ const BooksPage = ({
             <div>Delete</div>
           </div>
           <Suspense fallback={<p>Loading books...</p>}>
-            <BooksList booksData={booksData} updateDeleteList={updateDeleteList} />
+            <BooksList
+              booksData={booksData}
+              updateDeleteList={updateDeleteList}
+              activeFilter={activeFilter}
+            />
           </Suspense>
         </div>
       </div>

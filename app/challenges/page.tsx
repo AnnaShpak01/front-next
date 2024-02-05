@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import App from '../../components/app/_app'
 import BookChallengePage from './BookChallengePage'
-import { BingoType } from 'components/reducers/bingo'
+import { BingoType } from 'components/types'
 
 export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
