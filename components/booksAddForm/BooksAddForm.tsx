@@ -12,30 +12,30 @@ const BooksAddForm = ({
   filterData: FiltersType[]
   updateList: Function
 }) => {
-  const [bookName, setBookName] = useState<string>('')
-  const [bookDescr, setBookDescr] = useState<string>('')
-  const [bookAuthor, setBookAuthor] = useState<string>('')
-  const [bookGenre, setBookGenre] = useState<string>('')
-  const [bookColor, setBookColor] = useState<string>('')
-  const [bookStatus, setBookStatus] = useState<string>('')
-  const [bookPages, setBookPages] = useState<number>(0)
-  const [bookImg, setBookImg] = useState<string>('')
-
-  //const { filtersLoadingStatus } = useSelector((state: any) => state.filters)
+  const [bookData, setBookData] = useState({
+    name: '',
+    description: '',
+    author: '',
+    genre: '',
+    color: '',
+    status: '',
+    pages: 0,
+    img: '',
+  })
 
   const onSubmitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
     const newBook = {
       id: uuidv4(),
-      name: bookName,
-      author: bookAuthor,
-      description: bookDescr,
-      genre: bookGenre,
-      status: bookStatus,
-      color: bookColor,
-      imgsrc: bookImg,
-      pages: bookPages,
+      name: bookData.name,
+      author: bookData.author,
+      description: bookData.description,
+      genre: bookData.genre,
+      status: bookData.status,
+      color: bookData.color,
+      imgsrc: bookData.img,
+      pages: bookData.pages,
     }
 
     try {
@@ -54,14 +54,16 @@ const BooksAddForm = ({
       console.error('Failed to add a new book', error)
     }
 
-    setBookName('')
-    setBookDescr('')
-    setBookAuthor('')
-    setBookColor('')
-    setBookGenre('')
-    setBookImg('')
-    setBookPages(0)
-    setBookStatus('')
+    setBookData({
+      name: '',
+      description: '',
+      author: '',
+      genre: '',
+      color: '',
+      status: '',
+      pages: 0,
+      img: '',
+    })
   }
 
   const renderFilters = (filters: FiltersType[]) => {
@@ -100,8 +102,13 @@ const BooksAddForm = ({
           className={` ${styles['form-control']} ${styles.bordered} `}
           id="name"
           placeholder="Name of the book"
-          value={bookName}
-          onChange={(e) => setBookName(e.target.value)}
+          value={bookData.name}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              name: e.target.value,
+            }))
+          }
         />
       </div>
 
@@ -116,8 +123,13 @@ const BooksAddForm = ({
           className={` ${styles['form-control']} ${styles.bordered} `}
           id="author"
           placeholder="Author of the book"
-          value={bookAuthor}
-          onChange={(e) => setBookAuthor(e.target.value)}
+          value={bookData.author}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              author: e.target.value,
+            }))
+          }
         />
       </div>
 
@@ -132,8 +144,13 @@ const BooksAddForm = ({
           id="description"
           placeholder="Short summary about book"
           style={{ height: '130px' }}
-          value={bookDescr}
-          onChange={(e) => setBookDescr(e.target.value)}
+          value={bookData.description}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              description: e.target.value,
+            }))
+          }
         />
       </div>
 
@@ -148,8 +165,13 @@ const BooksAddForm = ({
           className={` ${styles['form-control']} ${styles.bordered} `}
           id="genre"
           placeholder="Genre of book"
-          value={bookGenre}
-          onChange={(e) => setBookGenre(e.target.value)}
+          value={bookData.genre}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              genre: e.target.value,
+            }))
+          }
         />
       </div>
       <div className={` ${styles['mb-3']} ${styles.formline} `}>
@@ -163,8 +185,13 @@ const BooksAddForm = ({
           className={` ${styles['form-control']} ${styles.bordered} `}
           id="cover"
           placeholder="Link on image"
-          value={bookImg}
-          onChange={(e) => setBookImg(e.target.value)}
+          value={bookData.img}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              img: e.target.value,
+            }))
+          }
         />
       </div>
 
@@ -177,8 +204,13 @@ const BooksAddForm = ({
           className={` ${styles['form-select']} ${styles.bordered} `}
           id="status"
           name="status"
-          value={bookStatus}
-          onChange={(e) => setBookStatus(e.target.value)}>
+          value={bookData.status}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              status: e.target.value,
+            }))
+          }>
           <option value="">Status of reading...</option>
           {renderFilters(filterData)}
         </select>
@@ -194,8 +226,13 @@ const BooksAddForm = ({
           className={` ${styles['form-control']} ${styles.bordered} `}
           id="pages"
           placeholder="Count of pages"
-          value={bookPages}
-          onChange={(e) => setBookPages(parseInt(e.target.value))}
+          value={bookData.pages}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              pages: parseInt(e.target.value),
+            }))
+          }
         />
       </div>
       <div className={` ${styles['mb-3']} ${styles.formline} `}>
@@ -207,8 +244,13 @@ const BooksAddForm = ({
           className={` ${styles['form-select']} ${styles.bordered} `}
           id="element"
           name="element"
-          value={bookColor}
-          onChange={(e) => setBookColor(e.target.value)}>
+          value={bookData.color}
+          onChange={(e) =>
+            setBookData((prev) => ({
+              ...prev,
+              color: e.target.value,
+            }))
+          }>
           <option value="">Choose color of the cover...</option>
           <option value="red">Red</option>
           <option value="yellow">Yellow</option>

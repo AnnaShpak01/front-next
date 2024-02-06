@@ -4,8 +4,7 @@ import React, { useEffect, useState } from 'react'
 
 import App from '../../components/app/_app'
 import Shelves from './Shelves'
-//import { fetchDataServer, updateBookItem } from '@api/api'
-import { BookType } from 'components/reducers/books'
+import { BookType } from 'components/types'
 
 export default function Home({ initialBooksData }: { initialBooksData: BookType[] }) {
   const [books, setBooks] = useState(initialBooksData)
@@ -54,24 +53,3 @@ export default function Home({ initialBooksData }: { initialBooksData: BookType[
     </App>
   )
 }
-
-// export async function getServerSideProps() {
-//   try {
-//     const response = await fetch('http://localhost:3000/api/books')
-//     const initialBooksData: BookType[] = await response.json()
-
-//     return {
-//       props: {
-//         initialBooksData,
-//       },
-//     }
-//   } catch (error) {
-//     console.error('Error fetching initial book data:', error)
-
-//     return {
-//       props: {
-//         initialBooksData: [],
-//       },
-//     }
-//   }
-// }

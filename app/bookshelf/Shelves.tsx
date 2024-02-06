@@ -1,7 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { BookType } from '../../components/reducers/books'
+import { BookType } from '../../components/types'
 import styles from './bookshelf.module.scss'
 import Modal from 'react-modal'
 

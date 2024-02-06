@@ -1,8 +1,9 @@
 'use client'
-import React, { useEffect, useState } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import App from '../../components/app/_app'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/types'
+import Loading from './loading'
 
 export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
@@ -42,28 +43,9 @@ export default function Home() {
 
   return (
     <App>
-      <BookChallengePage bingoData={bingoData} updateBingo={updateBingo} />
+      <Suspense fallback={<Loading />}>
+        <BookChallengePage bingoData={bingoData} updateBingo={updateBingo} />
+      </Suspense>
     </App>
   )
 }
-
-// export async function getServerSideProps() {
-//   try {
-//     const response = await fetch('http://localhost:3000/api/bingo')
-//     const initialBingoData: BingoType[] = await response.json()
-
-//     return {
-//       props: {
-//         initialBingoData,
-//       },
-//     }
-//   } catch (error) {
-//     console.error('Error fetching initial bingo data:', error)
-
-//     return {
-//       props: {
-//         initialBingoData: [],
-//       },
-//     }
-//   }
-// }

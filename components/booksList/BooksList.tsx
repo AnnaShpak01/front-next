@@ -3,8 +3,7 @@
 import { useMemo } from 'react'
 import { BookType } from '../types'
 import BooksListItem from '../booksListItem/BooksListItem'
-import Spinner from '../spinner/Spinner'
-import styles from './bookslist.module.scss'
+import Loading from 'app/loading'
 
 const BooksList = ({
   booksData,
@@ -40,18 +39,11 @@ const BooksList = ({
       console.error('Failed to delete book', error)
     }
   }
-  // if (isLoading) {
-  //   return <Spinner />
-  // } else if (isError) {
-  //   return <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>Loading error</h5>
-  // }
 
   return (
     <div>
       {' '}
-      {filteredBooks.length === 0 && (
-        <h5 className={`${styles['text-center']} ${styles['mt-5']}`}>No Books yet </h5>
-      )}
+      {filteredBooks.length === 0 && <Loading />}
       {Array.isArray(filteredBooks) &&
         filteredBooks.length !== 0 &&
         filteredBooks.map((item: BookType) => (
