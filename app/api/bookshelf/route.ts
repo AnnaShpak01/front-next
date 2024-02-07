@@ -1,6 +1,3 @@
-import { BookType } from 'components/reducers/books'
-import { NextApiRequest, NextApiResponse } from 'next'
-
 export async function GET() {
   try {
     const initialBooksData = await fetch('http://localhost:8080/books')
