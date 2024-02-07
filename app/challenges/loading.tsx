@@ -4,7 +4,7 @@ export default function Loading() {
   return (
     <div>
       <Spinner />
-      <p>Loading main page...</p>
+      <p>Loading challenges page...</p>
     </div>
   )
 }

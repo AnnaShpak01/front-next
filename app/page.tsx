@@ -1,9 +1,10 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { Suspense, useCallback, useEffect, useState } from 'react'
 import BooksPage from '../components/booksPage/BooksPage'
 import { FiltersType, BookType } from 'components/types'
 import App from '../components/app/_app'
+import Loading from './loading'
 
 export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])
@@ -45,42 +46,14 @@ export default function Page() {
 
   return (
     <App>
-      <BooksPage
-        booksData={books}
-        filterData={filtersData}
-        updateList={updateList}
-        updateDeleteList={updateDeleteList}
-      />
+      <Suspense fallback={<Loading />}>
+        <BooksPage
+          booksData={books}
+          filterData={filtersData}
+          updateList={updateList}
+          updateDeleteList={updateDeleteList}
+        />
+      </Suspense>
     </App>
   )
 }
-
-// export const getServerSideProps: GetServerSideProps = async () => {
-//   try {
-//     const [booksResponse, filtersResponse] = await Promise.all([
-//       fetch('http://localhost:3000/api/books'),
-//       fetch('http://localhost:3000/api/filters'),
-//     ])
-
-//     const [initialBooksData, filtersData] = await Promise.all([
-//       booksResponse.json(),
-//       filtersResponse.json(),
-//     ])
-
-//     return {
-//       props: {
-//         initialBooksData,
-//         filtersData,
-//       },
-//     }
-//   } catch (error) {
-//     console.error('Error fetching data:', error)
-
-//     return {
-//       props: {
-//         initialBooksData: [],
-//         filtersData: [],
-//       },
-//     }
-//   }
-// }

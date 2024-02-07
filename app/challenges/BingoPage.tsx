@@ -3,6 +3,7 @@ import { BingoType } from '../../components/types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import BingoCard from './BingoCard'
 import styles from './challenges.module.scss'
+import Spinner from 'components/spinner/Spinner'
 
 type BingoPageProps = {
   bingoData?: BingoType[]
@@ -10,12 +11,13 @@ type BingoPageProps = {
 }
 
 const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
-  if (!bingoData) {
-    return <div className={`${styles['text-center']} ${styles['mt-5']}`}>Loading Bingo data...</div>
-  }
-
-  if (bingoData.length === 0) {
-    return <div className={`${styles['text-center']} ${styles['mt-5']}`}>Bingo not found</div>
+  if (!bingoData || bingoData.length === 0) {
+    return (
+      <div>
+        <p>Loading Bingo data...</p>
+        <Spinner />
+      </div>
+    )
   }
 
   return (

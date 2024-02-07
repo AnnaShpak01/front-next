@@ -4,6 +4,7 @@ import { useMemo, useState } from 'react'
 import { BookType } from '../../components/types'
 import styles from './bookshelf.module.scss'
 import Modal from 'react-modal'
+import Spinner from 'components/spinner/Spinner'
 
 type ShelvesPageProps = {
   booksData: BookType[]
@@ -95,6 +96,7 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
           <div className={`${styles.container} ${styles['inner-container']}`}>
             <div className={styles.drag_column}>
               <div className={styles.drag_row}>
+                {!arrBook && <Spinner />}
                 {arrBook?.map((book: BookType) => (
                   <div
                     className={`${styles.card} ${book.color}`}

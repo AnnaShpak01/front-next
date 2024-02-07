@@ -4,7 +4,6 @@ import classNames from 'classnames'
 import { FiltersType } from '../types'
 import Spinner from '../spinner/Spinner'
 import styles from './bookfilters.module.scss'
-import Loading from 'app/loading'
 
 const BooksFilters = ({
   filterData,
@@ -20,7 +19,11 @@ const BooksFilters = ({
       className={` ${styles['shadow-lg']} ${styles['mb-4']} ${styles.rounded} ${styles['bordered']}`}>
       <div className={` ${styles['card-body']} ${styles['centered-intro']}  ${styles.rounded}`}>
         <p className={` ${styles['card-text']} ${styles['filters-label']}`}>Filter by status</p>
-        {filterData?.length === 0 && <Loading />}
+        {filterData?.length === 0 && (
+          <div className={styles.loader}>
+            <Spinner />
+          </div>
+        )}
         <div
           className={` ${styles['btn-group ']} ${styles['filters-block']}  ${styles.bordered}  ${styles.rounded}`}>
           {filterData &&
