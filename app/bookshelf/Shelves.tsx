@@ -5,6 +5,7 @@ import { BookType } from '../../components/types'
 import styles from './bookshelf.module.scss'
 import Modal from 'react-modal'
 import Spinner from 'components/spinner/Spinner'
+import Image from 'next/image'
 
 type ShelvesPageProps = {
   booksData: BookType[]
@@ -146,7 +147,13 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
                 <strong>&times;</strong>
               </button>
               <div className={styles.popup_form}>
-                <img className={styles.pic} src={selectedBook.imgsrc} alt={selectedBook.name} />
+                <Image
+                  className={styles.pic}
+                  src={selectedBook.imgsrc}
+                  alt={selectedBook.name}
+                  width="150"
+                  height="300"
+                />
                 <div className={styles['book-name']}>{selectedBook.name}</div>
                 <div className={styles['book-author']}>{selectedBook.author}</div>
                 <div className={styles['book-description']}>{selectedBook.description}</div>
