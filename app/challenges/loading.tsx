@@ -1,10 +1,11 @@
 import Spinner from 'components/spinner/Spinner'
+import styles from './challenges.module.scss'
 
 export default function Loading() {
   return (
     <div>
       <Spinner />
-      <p>Loading challenges page...</p>
+      <p className={styles.centered}>Loading challenges page...</p>
     </div>
   )
 }

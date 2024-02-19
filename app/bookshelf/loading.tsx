@@ -1,11 +1,11 @@
 import Spinner from 'components/spinner/Spinner'
+import styles from './bookshelf.module.scss'
 
 export default function Loading() {
-  console.log('loading page')
   return (
     <div>
       <Spinner />
-      <p>Loading bookshelf page...</p>
+      <p className={styles.centered}>Loading bookshelf page...</p>
     </div>
   )
 }

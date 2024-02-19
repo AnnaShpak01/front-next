@@ -3,7 +3,7 @@
 import { useMemo } from 'react'
 import { BookType } from '../types'
 import BooksListItem from '../booksListItem/BooksListItem'
-import Loading from 'app/loading'
+import Loading from 'app/main/loading'
 
 const BooksList = ({
   booksData,

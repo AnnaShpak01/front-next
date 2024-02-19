@@ -1,59 +1,25 @@
-'use client'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { signIn, useSession } from 'next-auth/clients'
 
-import React, { Suspense, useCallback, useEffect, useState } from 'react'
-import BooksPage from '../components/booksPage/BooksPage'
-import { FiltersType, BookType } from 'components/types'
-import App from '../components/app/_app'
-import Loading from './loading'
-
-export default function Page() {
-  const [books, setBooks] = useState<BookType[]>([])
-  const [filtersData, setFilters] = useState<FiltersType[]>([])
+function LoginPage() {
+  const [session, loading] = useSession()
+  const router = useRouter()
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const [booksResponse, filtersResponse] = await Promise.all([
-          fetch('http://localhost:3000/api/bookshelf'),
-          fetch('http://localhost:3000/api'),
-        ])
-
-        const [initialBooksData, initialFiltersData] = await Promise.all([
-          booksResponse.json(),
-          filtersResponse.json(),
-        ])
-
-        setBooks(initialBooksData)
-        setFilters(initialFiltersData)
-      } catch (error) {
-        console.error('Error fetching data:', error)
-      }
+    if (session) {
+      router.replace('/main') // Перенаправляем на другую страницу, если пользователь авторизован
     }
+  }, [session])
 
-    fetchData()
-  }, [])
-
-  const updateList = (newBook: BookType) => {
-    setBooks((prevBooks) => [...prevBooks, newBook])
-  }
-
-  const updateDeleteList = useCallback(
-    (deletedBookId: string) => {
-      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== deletedBookId))
-    },
-    [setBooks]
-  )
+  if (loading) return <div>Loading...</div>
 
   return (
-    <App>
-      <Suspense fallback={<Loading />}>
-        <BooksPage
-          booksData={books}
-          filterData={filtersData}
-          updateList={updateList}
-          updateDeleteList={updateDeleteList}
-        />
-      </Suspense>
-    </App>
+    <div>
+      <h1>Login Page</h1>
+      <button onClick={() => signIn()}>Sign in</button>
+    </div>
   )
 }
+
+export default LoginPage
