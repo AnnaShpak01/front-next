@@ -35,5 +35,3 @@ export default function PageLogIn() {
     </SessionProvider>
   )
 }
-
-export default LoginPage
