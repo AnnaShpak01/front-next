@@ -1,24 +1,38 @@
-import { useRouter } from 'next/router'
-import { useEffect } from 'react'
-import { signIn, useSession } from 'next-auth/clients'
+'use client'
+import { useSession, SessionProvider, signIn, signOut } from 'next-auth/react'
 
-function LoginPage() {
-  const [session, loading] = useSession()
-  const router = useRouter()
+export function Component() {
+  const { data: session } = useSession()
 
-  useEffect(() => {
-    if (session) {
-      router.replace('/main') // Перенаправляем на другую страницу, если пользователь авторизован
-    }
-  }, [session])
+  const handleGoogleSignIn = () => {
+    signIn('Google', { callbackUrl: '/' })
+  }
 
-  if (loading) return <div>Loading...</div>
-
+  if (session) {
+    return (
+      <>
+        Signed in as {session?.user?.email} <br />
+        <button type="button" onClick={() => signOut()}>
+          Sign out
+        </button>
+      </>
+    )
+  }
   return (
-    <div>
-      <h1>Login Page</h1>
-      <button onClick={() => signIn()}>Sign in</button>
-    </div>
+    <>
+      Not signed in <br />
+      <button type="button" onClick={handleGoogleSignIn}>
+        Sign in
+      </button>
+    </>
+  )
+}
+
+export default function PageLogIn() {
+  return (
+    <SessionProvider>
+      <Component />
+    </SessionProvider>
   )
 }
 
