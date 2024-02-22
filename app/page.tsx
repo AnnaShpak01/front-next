@@ -5,7 +5,7 @@ export function Component() {
   const { data: session } = useSession()
 
   const handleGoogleSignIn = () => {
-    signIn('Google', { callbackUrl: '/' })
+    signIn('google', { callbackUrl: '/main' })
   }
 
   if (session) {

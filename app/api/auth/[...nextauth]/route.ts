@@ -12,6 +12,17 @@ export const authOptions: AuthOptions = {
     }),
     // ...add more providers here
   ],
+  secret: process.env.NEXTAUTH_SECRET,
+  callbacks: {
+    // Using the `...rest` parameter to be able to narrow down the type based on `trigger`
+    jwt({ token, trigger, session }) {
+      if (trigger === 'update' && session?.name) {
+        // Note, that `session` can be any arbitrary object, remember to validate it!
+        token.name = session.name
+      }
+      return token
+    },
+  },
 }
 
 const handler = NextAuth(authOptions)
