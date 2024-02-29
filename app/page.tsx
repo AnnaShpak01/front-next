@@ -5,35 +5,12 @@ import BooksPage from '../components/booksPage/BooksPage'
 import { FiltersType, BookType } from 'components/types'
 import App from '../components/app/_app'
 import Loading from './loading'
-import { useSession, SessionProvider, signIn } from 'next-auth/react'
 import styles from './page.module.css'
 
-export function Component() {
-  const { data: session } = useSession()
-
-  const handleGoogleSignIn = () => {
-    signIn('Google', { callbackUrl: '/' })
-  }
-
-  if (session) {
-    return <Page />
-  }
-  return (
-    <div className={styles.signform}>
-      <div className={styles.loginform}>
-        <div className={styles.title}>Sign in to login</div>
-        <button type="button" className={styles.btn_signin} onClick={handleGoogleSignIn}>
-          Sign in with Google
-        </button>
-      </div>
-    </div>
-  )
-}
-
-export function Page() {
+export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])
   const [filtersData, setFilters] = useState<FiltersType[]>([])
-  const { data: session } = useSession()
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -79,13 +56,5 @@ export function Page() {
         />
       </Suspense>
     </App>
-  )
-}
-
-export default function PageLogIn() {
-  return (
-    <SessionProvider>
-      <Component />
-    </SessionProvider>
   )
 }
