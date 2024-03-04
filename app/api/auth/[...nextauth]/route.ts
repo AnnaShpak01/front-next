@@ -1,7 +1,7 @@
 import { AuthOptions } from 'next-auth'
 import NextAuth from 'next-auth/next'
 import GoogleProvider from 'next-auth/providers/google'
-import SignToken from 'utils/signinToken'
+import SignToken from '../../../../utils/signToken'
 
 export const authOptions: AuthOptions = {
   providers: [
@@ -23,10 +23,14 @@ export const authOptions: AuthOptions = {
       return token
     },
     async session({ session, token, user }) {
-      session.loggedUser = token.loggedUser
-      return session
+      // session.loggedUser = token.loggedUser;
+      const newSession = { ...session, loggedUser: token.loggedUser }
+      return newSession
     },
   },
+  // session: {
+  //   strategy: 'jwt',
+  // },
 }
 
 const handler = NextAuth(authOptions)
