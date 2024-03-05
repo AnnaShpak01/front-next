@@ -14,9 +14,9 @@ export default function LoginComponent({ children }: { children: any }) {
   //}, [session, status]);
 
   if (session) {
-    console.log(session)
-    const token = JWToken()
-    console.log(token)
+    console.log(session.loggedUser)
+    //const token = JWToken()
+    //console.log(token)
     return <>{children}</>
   }
   return <SignIn />

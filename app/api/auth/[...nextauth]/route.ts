@@ -15,6 +15,15 @@ export const authOptions: AuthOptions = {
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
+    // async signIn({ user, account, profile }) {
+    //   const data = {
+    //     firstName: 'name',
+    //     lastName: 'name2',
+    //     email: 'maul@i.ua',
+    //     profileUrl: 'http://some.image.com/image',
+    //   }
+    //   return true
+    // },
     async jwt({ token, user, account }) {
       if (account) {
         const userLoggedIn = await SignToken(user?.email as string)
@@ -23,7 +32,7 @@ export const authOptions: AuthOptions = {
       return token
     },
     async session({ session, token, user }) {
-      // session.loggedUser = token.loggedUser;
+      //session.loggedUser = token.loggedUser;
       const newSession = { ...session, loggedUser: token.loggedUser }
       return newSession
     },
