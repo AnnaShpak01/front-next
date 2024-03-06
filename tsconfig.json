@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "app/api/auth/[...nextauth]/route.оs"
+    "app/api/auth/[...nextauth]/route.оs",
+    "components/LoginComponent/jwt.js"
   ],
   "exclude": ["node_modules"]
 }
