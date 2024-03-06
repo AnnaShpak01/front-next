@@ -6,17 +6,24 @@ import { FiltersType, BookType } from 'components/types'
 import App from '../components/app/_app'
 import Loading from './loading'
 import styles from './page.module.css'
+import { useSession } from 'next-auth/react'
 
 export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])
   const [filtersData, setFilters] = useState<FiltersType[]>([])
-
+  const { data: session, status } = useSession()
+  const token = session?.loggedUser
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`, // Добавление токена JWT в заголовок Authorization
+    },
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
         const [booksResponse, filtersResponse] = await Promise.all([
-          fetch('http://localhost:3000/api/bookshelf'),
-          fetch('http://localhost:3000/api'),
+          fetch('http://localhost:3000/api/bookshelf', config),
+          fetch('http://localhost:3000/api', config),
         ])
 
         const [initialBooksData, initialFiltersData] = await Promise.all([

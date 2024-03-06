@@ -21,7 +21,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["pages/*"]
-    }
+    },
+    "typeRoots": ["./types"]
   },
   "include": [
     "next-env.d.ts",

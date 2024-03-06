@@ -11,19 +11,9 @@ export const authOptions: AuthOptions = {
       clientId: process.env.GOOGLE_CLIENT_ID || '',
       clientSecret: process.env.GOOGLE_CLIENT_SECRET || '',
     }),
-    // ...add more providers here
   ],
   secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
-    // async signIn({ user, account, profile }) {
-    //   const data = {
-    //     firstName: 'name',
-    //     lastName: 'name2',
-    //     email: 'maul@i.ua',
-    //     profileUrl: 'http://some.image.com/image',
-    //   }
-    //   return true
-    // },
     async jwt({ token, user, account }) {
       if (account) {
         const userLoggedIn = await SignToken(user?.email as string)
@@ -32,14 +22,11 @@ export const authOptions: AuthOptions = {
       return token
     },
     async session({ session, token, user }) {
-      //session.loggedUser = token.loggedUser;
+      // session.loggedUser = token.loggedUser || '';
       const newSession = { ...session, loggedUser: token.loggedUser }
       return newSession
     },
   },
-  // session: {
-  //   strategy: 'jwt',
-  // },
 }
 
 const handler = NextAuth(authOptions)
