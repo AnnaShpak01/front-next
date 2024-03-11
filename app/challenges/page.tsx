@@ -4,6 +4,7 @@ import App from '../../components/app/_app'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/types'
 import Loading from './loading'
+import { SessionProvider } from 'next-auth/react'
 
 export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
@@ -42,10 +43,10 @@ export default function Home() {
   }
 
   return (
-    <App>
-      <Suspense fallback={<Loading />}>
-        <BookChallengePage bingoData={bingoData} updateBingo={updateBingo} />
-      </Suspense>
-    </App>
+    // <App>
+    <Suspense fallback={<Loading />}>
+      <BookChallengePage bingoData={bingoData} updateBingo={updateBingo} />
+    </Suspense>
+    // </App>
   )
 }

@@ -6,7 +6,7 @@ import { FiltersType, BookType } from 'components/types'
 import App from '../components/app/_app'
 import Loading from './loading'
 import styles from './page.module.css'
-import { useSession } from 'next-auth/react'
+import { SessionProvider, useSession } from 'next-auth/react'
 
 export default function Page() {
   const [books, setBooks] = useState<BookType[]>([])
@@ -53,15 +53,15 @@ export default function Page() {
   )
 
   return (
-    <App>
-      <Suspense fallback={<Loading />}>
-        <BooksPage
-          booksData={books}
-          filterData={filtersData}
-          updateList={updateList}
-          updateDeleteList={updateDeleteList}
-        />
-      </Suspense>
-    </App>
+    // <App>
+    <Suspense fallback={<Loading />}>
+      <BooksPage
+        booksData={books}
+        filterData={filtersData}
+        updateList={updateList}
+        updateDeleteList={updateDeleteList}
+      />
+    </Suspense>
+    // </App>
   )
 }

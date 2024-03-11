@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import App from '../../components/app/_app'
 import Shelves from './Shelves'
 import { BookType } from 'components/types'
+import { SessionProvider } from 'next-auth/react'
 
 export default function Home({ initialBooksData }: { initialBooksData: BookType[] }) {
   const [books, setBooks] = useState(initialBooksData)
@@ -48,8 +49,8 @@ export default function Home({ initialBooksData }: { initialBooksData: BookType[
     }
   }
   return (
-    <App>
-      <Shelves booksData={books} updateBook={updateBook} />
-    </App>
+    // <App>
+    <Shelves booksData={books} updateBook={updateBook} />
+    // </App>
   )
 }
