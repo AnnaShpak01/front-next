@@ -1,6 +1,9 @@
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const initialBingoData = await fetch('http://localhost:8080/bingo')
+    const initialBingoData = await fetch('http://localhost:8080/bingo', {
+      method: 'GET',
+      headers: request.headers,
+    })
     return initialBingoData
   } catch (error) {
     console.error('Error fetching initial bingo data:', error)
@@ -15,9 +18,10 @@ export async function PUT(request: Request) {
 
   return await fetch(`http://localhost:8080/bingo/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: request.headers,
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
     body: JSON.stringify(body),
   })
 }

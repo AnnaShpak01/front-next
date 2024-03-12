@@ -1,6 +1,9 @@
-export async function GET() {
+export async function GET(request: Request) {
   try {
-    const initialBooksData = await fetch('http://localhost:8080/books')
+    const initialBooksData = await fetch('http://localhost:8080/books', {
+      method: 'GET',
+      headers: request.headers,
+    })
     return initialBooksData
   } catch (error) {
     console.error('Error fetching initial books data:', error)
@@ -14,9 +17,10 @@ export async function POST(request: Request) {
 
     const response = await fetch('http://localhost:8080/books', {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      headers: request.headers,
+      // headers: {
+      //   'Content-Type': 'application/json',
+      // },
       body: JSON.stringify(body),
     })
 
@@ -39,9 +43,10 @@ export async function PUT(request: Request) {
 
   return await fetch(`http://localhost:8080/books/${id}`, {
     method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-    },
+    headers: request.headers,
+    // headers: {
+    //   'Content-Type': 'application/json',
+    // },
     body: JSON.stringify(body),
   })
 }
@@ -52,5 +57,6 @@ export async function DELETE(request: Request) {
 
   return await fetch(`http://localhost:8080/books/${id}`, {
     method: 'DELETE',
+    headers: request.headers,
   })
 }

@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 import { FiltersType } from '../types'
 import styles from './booksAddForm.module.scss'
+import { useSession } from 'next-auth/react'
 
 const BooksAddForm = ({
   filterData,
@@ -23,6 +24,14 @@ const BooksAddForm = ({
     img: '',
   })
 
+  const { data: session, status } = useSession()
+  const token = session?.loggedUser
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
+
   const onSubmitHandler = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
 
@@ -41,6 +50,7 @@ const BooksAddForm = ({
     try {
       const response = await fetch('http://localhost:3000/api/bookshelf/', {
         method: 'POST',
+        headers: config.headers,
         body: JSON.stringify(newBook),
       })
 

@@ -15,10 +15,11 @@ export default function Page() {
   const token = session?.loggedUser
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`, // Добавление токена JWT в заголовок Authorization
+      Authorization: `Bearer ${token}`,
     },
   }
   useEffect(() => {
+    console.log(config.headers)
     const fetchData = async () => {
       try {
         const [booksResponse, filtersResponse] = await Promise.all([
