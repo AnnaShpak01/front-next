@@ -17,7 +17,7 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
   const [selectedBook, setSelectedBook] = useState<BookType | null>(null)
 
   const shelves = useMemo(() => {
-    const filteredBooks = booksData?.slice()
+    const filteredBooks = booksData && booksData.length > 0 ? booksData.slice() : []
     return filteredBooks
   }, [booksData])
 

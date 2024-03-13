@@ -20,7 +20,7 @@ const AlphabetChallenge = () => {
   }, [])
 
   const shelves = useMemo(() => {
-    const filteredBooks = books.slice()
+    const filteredBooks = books && books.length > 0 ? books.slice() : []
     return filteredBooks
   }, [books])
 

@@ -15,7 +15,7 @@ const BooksList = ({
   activeFilter: string
 }) => {
   const filteredBooks = useMemo(() => {
-    const filteredBooks = booksData ? booksData.slice() : []
+    const filteredBooks = booksData && booksData.length > 0 ? booksData.slice() : []
 
     if (activeFilter === 'all') {
       return filteredBooks
