@@ -19,7 +19,6 @@ export default function Page() {
     },
   }
   useEffect(() => {
-    console.log(config.headers)
     const fetchData = async () => {
       try {
         const [booksResponse, filtersResponse] = await Promise.all([

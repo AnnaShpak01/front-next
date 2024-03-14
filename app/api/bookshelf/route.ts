@@ -18,9 +18,6 @@ export async function POST(request: Request) {
     const response = await fetch('http://localhost:8080/books', {
       method: 'POST',
       headers: request.headers,
-      // headers: {
-      //   'Content-Type': 'application/json',
-      // },
       body: JSON.stringify(body),
     })
 
@@ -44,9 +41,6 @@ export async function PUT(request: Request) {
   return await fetch(`http://localhost:8080/books/${id}`, {
     method: 'PUT',
     headers: request.headers,
-    // headers: {
-    //   'Content-Type': 'application/json',
-    // },
     body: JSON.stringify(body),
   })
 }

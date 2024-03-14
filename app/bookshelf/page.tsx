@@ -16,7 +16,6 @@ export default function Home({ initialBooksData }: { initialBooksData: BookType[
     },
   }
   useEffect(() => {
-    console.log(config.headers)
     const fetchData = async () => {
       try {
         const response = await fetch('http://localhost:3000/api/bookshelf', config)

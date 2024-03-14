@@ -1,7 +1,7 @@
 export async function GET(request: Request) {
   try {
     const initialFiltersData = await fetch('http://localhost:8080/filters', {
-      method: 'PUT',
+      method: 'GET',
       headers: request.headers,
     })
     return initialFiltersData

@@ -1,14 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
 import { BookType } from '../../components/types'
 import styles from './challenges.module.scss'
+import { useSession } from 'next-auth/react'
 
 const AlphabetChallenge = () => {
   const [books, setBooksData] = useState<BookType[]>([])
-
+  const { data: session, status } = useSession()
+  const token = session?.loggedUser
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  }
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://localhost:3000/api/bookshelf')
+        const response = await fetch('http://localhost:3000/api/bookshelf', config)
         const initialBingoData: BookType[] = await response.json()
         setBooksData(initialBingoData)
       } catch (error) {
