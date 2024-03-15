@@ -4,6 +4,7 @@ import { useMemo } from 'react'
 import { BookType } from '../types'
 import BooksListItem from '../booksListItem/BooksListItem'
 import Loading from 'app/loading'
+import { useSession } from 'next-auth/react'
 
 const BooksList = ({
   booksData,
@@ -24,10 +25,20 @@ const BooksList = ({
     }
   }, [booksData, activeFilter])
 
+  const { data: session, status } = useSession()
+  const token = session?.loggedUser
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json',
+    },
+  }
+
   const onDelete = async (id: string) => {
     try {
       const response = await fetch(`/api/bookshelf?id=${id}`, {
         method: 'DELETE',
+        headers: config.headers,
       })
 
       if (!response.ok) {
