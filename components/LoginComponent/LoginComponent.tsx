@@ -1,12 +1,21 @@
 import SignIn from 'components/SignIn/SignIn'
-import { useSession } from 'next-auth/react'
-import JWToken from '../LoginComponent/jwt'
+import { useSession, signOut } from 'next-auth/react'
+import { useEffect } from 'react'
+import { checkAuthorization } from '../LoginComponent/CheckAuthorization'
 
-export default function LoginComponent({ children }: { children: any }) {
-  const { data: session, status } = useSession()
+const LoginComponent = ({ children }: { children: any }) => {
+  const { data: session } = useSession()
 
-  if (session) {
-    return <>{children}</>
-  }
-  return <SignIn />
+  useEffect(() => {
+    if (session) {
+      const isAuthorized = checkAuthorization(session)
+      if (!isAuthorized) {
+        signOut()
+      }
+    }
+  }, [session])
+
+  return <>{session ? <>{children}</> : <SignIn />}</>
 }
+
+export default LoginComponent
