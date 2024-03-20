@@ -3,7 +3,7 @@
 import React from 'react'
 import dynamic from 'next/dynamic'
 
-const LazyComponent = dynamic(() => import('./bookshelfPage'))
+const LazyComponent = dynamic(() => import('./BookshelfPage'))
 
 const MyPage = () => {
   return (

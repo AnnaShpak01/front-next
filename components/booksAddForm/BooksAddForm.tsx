@@ -78,12 +78,6 @@ const BooksAddForm = ({
   }
 
   const renderFilters = (filters: FiltersType[]) => {
-    // if (status === 'loading') {
-    //   return <option>Loading of elements</option>
-    // } else if (status === 'error') {
-    //   return <option>Loading Error</option>
-    // }
-
     if (filters && filters.length > 0) {
       return filters.map(({ name, label }: { name: string; label: string }) => {
         // eslint-disable-next-line

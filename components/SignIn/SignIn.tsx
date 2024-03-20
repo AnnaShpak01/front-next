@@ -1,4 +1,4 @@
-import { useSession, SessionProvider, signIn } from 'next-auth/react'
+import { signIn } from 'next-auth/react'
 import styles from './SignIn.module.scss'
 import { usePathname } from 'next/navigation'
 

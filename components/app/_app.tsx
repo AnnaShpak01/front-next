@@ -4,7 +4,7 @@ import LoginComponent from 'components/LoginComponent/LoginComponent'
 import styles from './app.module.scss'
 import GlobalStyle from './global'
 import { SessionProvider } from 'next-auth/react'
-import AppHeader from 'components/appHeader/AppHeader'
+import AppHeader from 'components/AppHeader/AppHeader'
 
 const App = ({ children }: { children: any }) => {
   return (

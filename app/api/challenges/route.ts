@@ -19,9 +19,6 @@ export async function PUT(request: Request) {
   return await fetch(`http://localhost:8080/bingo/${id}`, {
     method: 'PUT',
     headers: request.headers,
-    // headers: {
-    //   'Content-Type': 'application/json',
-    // },
     body: JSON.stringify(body),
   })
 }

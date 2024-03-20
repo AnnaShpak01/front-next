@@ -1,7 +1,7 @@
 'use client'
 
 import React, { Suspense, useCallback, useEffect, useState } from 'react'
-import BooksPage from '../components/booksPage/BooksPage'
+import BooksPage from '../components/BooksPage/BooksPage'
 import { FiltersType, BookType } from 'components/types'
 import Loading from './loading'
 import { useSession } from 'next-auth/react'

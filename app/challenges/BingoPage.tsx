@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { BingoType } from '../../components/types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import BingoCard from './BingoCard'

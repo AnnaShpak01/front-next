@@ -22,7 +22,6 @@ export const authOptions: AuthOptions = {
       return token
     },
     async session({ session, token, user }) {
-      // session.loggedUser = token.loggedUser || '';
       const newSession = { ...session, loggedUser: token.loggedUser }
       return newSession
     },
