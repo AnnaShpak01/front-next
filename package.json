@@ -1,5 +1,5 @@
 {
-  "name": "front-next",
+  "name": "front-end",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -47,5 +47,9 @@
     "eslint": "^8",
     "eslint-config-next": "14.0.4",
     "typescript": "^5"
-  }
+  },
+  "main": "dev",
+  "repository": "https://github.com/AnnaShpak01/front-next",
+  "author": "AnnaShpak01 <elistana@i.ua>",
+  "license": "MIT"
 }
