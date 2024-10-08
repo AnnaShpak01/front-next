@@ -3,7 +3,6 @@ import { render, screen, waitFor } from '@testing-library/react'
 import BingoPage from '../../challenges/BingoPage'
 import { BingoType } from '../../../components/types'
 
-// Мокаем компонент BingoCard и Spinner
 // eslint-disable-next-line react/display-name
 jest.mock('../../challenges/BingoCard', () => () => <div>BingoCard Mock</div>)
 // eslint-disable-next-line react/display-name
@@ -27,12 +26,10 @@ describe('BingoPage Component', () => {
 
     render(<BingoPage bingoData={mockBingoData} updateBingo={mockUpdateBingo} />)
 
-    // Проверяем, что рендерятся компоненты BingoCard
     await waitFor(() => {
-      expect(screen.getByText('BingoCard Mock')).toBeInTheDocument() // Проверяем, что хотя бы один BingoCard отрендерился
+      expect(screen.getByText('BingoCard Mock')).toBeInTheDocument()
     })
 
-    // Проверяем, что количество BingoCard соответствует количеству переданных данных
     expect(screen.getAllByText('BingoCard Mock').length).toBe(mockBingoData.length)
   })
 
@@ -41,13 +38,8 @@ describe('BingoPage Component', () => {
 
     render(<BingoPage bingoData={mockBingoData} updateBingo={mockUpdateBingo} />)
 
-    // Здесь можно было бы взаимодействовать с компонентом BingoCard, чтобы вызвать updateBingo,
-    // например, по клику или другому действию.
-    // Но для этого мы будем использовать mock-реализацию BingoCard с обработчиком события.
-
-    // Имитируем обновление
     await waitFor(() => {
-      expect(mockUpdateBingo).toHaveBeenCalled() // Проверяем, что функция была вызвана
+      expect(mockUpdateBingo).toHaveBeenCalled()
     })
   })
 })

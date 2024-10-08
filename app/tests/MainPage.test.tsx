@@ -27,7 +27,6 @@ class MockResponse extends Response {
 }
 
 ;(global as any).Response = MockResponse
-
 ;(global as any).fetch = jest.fn((url) => {
   const urlString = typeof url === 'string' ? url : url.toString()
   if (urlString.includes('/bookshelf')) {
@@ -48,12 +47,10 @@ class MockResponse extends Response {
   return Promise.reject(new Error('Not found'))
 })
 
-// Мокаем useSession
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
 }))
 
-// Мокаем BooksPage
 jest.mock('../../components/BooksPage/BooksPage', () => jest.fn(() => null))
 
 const mockBooksData: BookType[] = [
@@ -185,7 +182,6 @@ describe('Page Component', () => {
 
     render(<Page updateDeleteList={mockUpdateDeleteList} />)
 
-    // Нажмите на кнопку удаления
     fireEvent.click(screen.getByText('Delete Book'))
 
     await waitFor(() => {
