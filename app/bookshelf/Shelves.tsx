@@ -1,10 +1,10 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { BookType } from '../../components/types'
 import styles from './bookshelf.module.scss'
 import Modal from 'react-modal'
-import Spinner from 'components/spinner/Spinner'
+import Spinner from '../../components/spinner/Spinner'
 import Image from 'next/image'
 
 type ShelvesPageProps = {

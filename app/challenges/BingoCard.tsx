@@ -1,4 +1,5 @@
-import styles from './challenges.module.scss'
+import React from 'react'
+import styles from './challenges.module.scss' // Подключаем стили с использованием SCSS
 
 export type BingoTypeCard = {
   id: string
@@ -7,22 +8,29 @@ export type BingoTypeCard = {
   status: boolean
   bingoClass: string
   updateBingo: (
-    id: string,
-    updatedData: { task: string; color: string; status: boolean; id: string }
+    _id: string,
+    updatedData: { task: string; color: string; status: boolean; _id: string }
   ) => void
 }
 
-const BingoCard = ({ id, side, color, status, bingoClass, updateBingo }: BingoTypeCard) => {
-  const onClickCard = () => {
-    updateBingo(id, { task: side, color, status: !status, id: id.toString() })
+const BingoCard: React.FC<BingoTypeCard> = ({ id, side, color, bingoClass, updateBingo }) => {
+  const handleClick = () => {
+    updateBingo(id, { task: side, color, status: true, _id: id })
   }
 
   return (
-    <div className={styles['bingo-card']} key={id}>
-      <div className={styles['flip-card']} onClick={onClickCard}>
+    <div className={styles.bingoCard}>
+      {' '}
+      {/* Используем стили */}
+      <div className={styles.flipCard}>
         <div className={bingoClass}>
-          <div className={styles['flip-card-front']}>{side}</div>
-          <div className={styles['flip-card-back']} style={{ backgroundColor: color }}>
+          <div className={styles.flipCardFront} data-testid="card-front" onClick={handleClick}>
+            {side}
+          </div>
+          <div
+            className={styles.flipCardBack}
+            data-testid="card-back"
+            style={{ backgroundColor: color }}>
             {side}
           </div>
         </div>

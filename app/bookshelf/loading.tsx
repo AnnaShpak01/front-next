@@ -1,4 +1,5 @@
-import Spinner from 'components/spinner/Spinner'
+import React from 'react'
+import Spinner from '../../components/spinner/Spinner'
 import styles from './bookshelf.module.scss'
 
 export default function Loading() {

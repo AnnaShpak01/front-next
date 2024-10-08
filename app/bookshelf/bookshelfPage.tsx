@@ -6,7 +6,7 @@ import Shelves from './Shelves'
 import { BookType } from 'components/types'
 import { useSession } from 'next-auth/react'
 
-export default function Home({ initialBooksData }: { initialBooksData: BookType[] }) {
+export default function BookshelfPage({ initialBooksData }: { initialBooksData: BookType[] }) {
   const [books, setBooks] = useState(initialBooksData)
   const { data: session, status } = useSession()
   const token = session?.loggedUser

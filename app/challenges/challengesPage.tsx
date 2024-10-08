@@ -2,10 +2,10 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/types'
-import Loading from './loading'
+import Loading from '../loading'
 import { useSession } from 'next-auth/react'
 
-export default function Home() {
+export default function ChallengesPage() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
   const { data: session, status } = useSession()
   const token = session?.loggedUser
@@ -30,7 +30,7 @@ export default function Home() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
-      const response = await fetch(`/api/challenges?id=${id}`, {
+      const response = await fetch(`/api/challenges?_id=${id}`, {
         method: 'PUT',
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,7 +43,7 @@ export default function Home() {
       }
       const data: BingoType = await response.json()
       const updatedBingoData: BingoType[] = bingoData.map((item: BingoType) =>
-        item.id === id ? { ...item, ...data } : item
+        item._id === id ? { ...item, ...data } : item
       )
       setBingoData(updatedBingoData)
     } catch (error) {

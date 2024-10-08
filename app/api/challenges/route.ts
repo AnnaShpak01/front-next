@@ -14,8 +14,7 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const body = await request.json()
   const { searchParams } = new URL(request.url)
-  const id = searchParams.get('id')
-
+  const id = searchParams.get('_id')
   return await fetch(`http://localhost:8080/bingo/${id}`, {
     method: 'PUT',
     headers: request.headers,

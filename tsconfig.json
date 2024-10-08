@@ -6,6 +6,8 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
+    "types": ["jest"],
+    "typeRoots": ["node_modules/@types"],
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -21,8 +23,8 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["pages/*"]
-    },
-    "typeRoots": ["./types"]
+    }
+    // "typeRoots": ["./types"]
   },
   "include": [
     "next-env.d.ts",
@@ -30,7 +32,8 @@
     "**/*.tsx",
     ".next/types/**/*.ts",
     "app/api/auth/[...nextauth]/route.оs",
-    "components/LoginComponent/jwt.js"
+    "components/LoginComponent/jwt.js",
+    "tests/**/*.ts"
   ],
   "exclude": ["node_modules"]
 }
