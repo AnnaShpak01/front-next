@@ -11,4 +11,12 @@ module.exports = {
   },
   transformIgnorePatterns: ['/node_modules/'],
   setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  collectCoverage: true, // Включить сбор покрытия
+  collectCoverageFrom: [
+    'app/**/*.{js,jsx,ts,tsx}', // Укажите пути к вашим файлам для покрытия
+    '!**/node_modules/**', // Исключить node_modules
+    '!**/vendor/**', // Исключить vendor
+  ],
+  coverageDirectory: 'coverage', // Директория для отчетов
+  coverageReporters: ['text', 'lcov'], // Виды отчетов
 }

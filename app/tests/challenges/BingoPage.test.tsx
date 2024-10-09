@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen, waitFor, fireEvent } from '@testing-library/react'
 import BingoPage from '../../challenges/BingoPage'
 import { BingoType } from '../../../components/types'
 
@@ -27,16 +27,17 @@ describe('BingoPage Component', () => {
     render(<BingoPage bingoData={mockBingoData} updateBingo={mockUpdateBingo} />)
 
     await waitFor(() => {
-      expect(screen.getByText('BingoCard Mock')).toBeInTheDocument()
+      const bingoCards = screen.getAllByText('BingoCard Mock')
+      expect(bingoCards).toHaveLength(mockBingoData.length)
     })
-
-    expect(screen.getAllByText('BingoCard Mock').length).toBe(mockBingoData.length)
   })
 
   it('should call updateBingo when BingoCard is updated', async () => {
     const mockBingoData: BingoType[] = [{ _id: '1', task: 'Task 1', color: 'red', status: false }]
 
     render(<BingoPage bingoData={mockBingoData} updateBingo={mockUpdateBingo} />)
+
+    fireEvent.click(screen.getByText('BingoCard Mock'))
 
     await waitFor(() => {
       expect(mockUpdateBingo).toHaveBeenCalled()

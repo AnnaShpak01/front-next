@@ -23,7 +23,6 @@ const createMockResponse = (data: any) => {
 describe('ChallengesPage', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-
     ;(useSession as jest.Mock).mockReturnValue({
       data: { loggedUser: 'mockToken' },
       status: 'authenticated',
