@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
-import BookshelfPage from '../../bookshelf/BookshelfPage'
+import BookshelfPage from '../../bookshelf/bookshelfPage'
 import { BookType } from '../../../components/types'
 
 const mockBooks: BookType[] = [

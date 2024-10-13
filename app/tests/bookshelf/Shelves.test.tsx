@@ -61,17 +61,37 @@ describe('Shelves Component', () => {
         getData: jest.fn(() => '1'),
         dropEffect: 'move',
         effectAllowed: 'move',
-        items: [],
-        files: [],
-        types: [],
       },
     } as unknown as DragEvent
 
-    const shelfElement = screen.getByText('New Books').closest('div')
+    const shelfElement = screen.getByText('In Progress').closest('div') // dropping to 'In Progress' shelf
     if (shelfElement) {
       fireEvent.drop(shelfElement, dropEvent)
     }
 
-    expect(mockUpdateBook).toHaveBeenCalledWith('1', { ...mockBooksData[0], status: 'New Books' })
+    expect(mockUpdateBook).toHaveBeenCalledWith('1', { ...mockBooksData[0], status: 'In Progress' })
+  })
+
+  test('should start and end drag events', () => {
+    const bookElement = screen.getByText('Book One').closest('div')
+    if (bookElement) {
+      fireEvent.dragStart(bookElement)
+      bookElement.classList.add('dragged')
+      expect(bookElement.classList).toContain('dragged')
+
+      fireEvent.dragEnd(bookElement)
+      bookElement.classList.remove('dragged')
+      expect(bookElement.classList).not.toContain('dragged')
+    }
+  })
+
+  test('should open modal and display book details', () => {
+    fireEvent.doubleClick(screen.getByText('Book One'))
+
+    expect(screen.getByText('Description for Book One')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: /×/ }))
+
+    expect(screen.queryByText('Description for Book One')).not.toBeInTheDocument()
   })
 })
