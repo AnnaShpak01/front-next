@@ -2,7 +2,7 @@ export type BingoType = {
   task: string
   color: string
   status: boolean
-  id: string
+  _id: string
 }
 
 export type BookType = {

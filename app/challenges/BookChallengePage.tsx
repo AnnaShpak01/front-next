@@ -1,3 +1,4 @@
+import React from 'react'
 import { BingoType } from 'components/types'
 import AlphabetChallenge from './AlphabetChallenge'
 import BingoPage from './BingoPage'
