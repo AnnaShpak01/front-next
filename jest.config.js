@@ -10,5 +10,9 @@ module.exports = {
     '\\.(css|scss)$': 'identity-obj-proxy',
   },
   transformIgnorePatterns: ['/node_modules/'],
-  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'],
+  setupFilesAfterEnv: ['<rootDir>/setupTests.ts'], // Используйте этот параметр для настройки jest-fetch-mock
+  collectCoverage: true,
+  collectCoverageFrom: ['app/**/*.{js,jsx,ts,tsx}', '!**/node_modules/**', '!**/vendor/**'],
+  coverageDirectory: 'coverage',
+  coverageReporters: ['text', 'lcov'],
 }

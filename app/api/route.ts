@@ -7,6 +7,6 @@ export async function GET(request: Request) {
     return initialFiltersData
   } catch (error) {
     console.error('Error fetching initial filters data:', error)
-    return []
+    return new Response(JSON.stringify([]), { status: 500 })
   }
 }

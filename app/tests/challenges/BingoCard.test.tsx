@@ -30,10 +30,9 @@ describe('BingoCard component', () => {
     const { getByTestId } = render(<BingoCard {...mockProps} />)
     const cardFront = getByTestId('card-front')
 
-    // Используем fireEvent для клика
     fireEvent.click(cardFront)
 
-    expect(mockUpdateBingo).toHaveBeenCalledTimes(1) // Проверяем количество вызовов
+    expect(mockUpdateBingo).toHaveBeenCalledTimes(1)
     expect(mockUpdateBingo).toHaveBeenCalledWith('1', {
       task: 'Test Side',
       color: 'blue',

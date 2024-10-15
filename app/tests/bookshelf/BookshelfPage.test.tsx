@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen, waitFor } from '@testing-library/react'
-import BookshelfPage from '../../bookshelf/BookshelfPage'
+import BookshelfPage from '../../bookshelf/bookshelfPage'
 import { BookType } from '../../../components/types'
 
 const mockBooks: BookType[] = [
@@ -30,7 +30,7 @@ const mockBooks: BookType[] = [
 
 describe('BookshelfPage', () => {
   beforeEach(() => {
-    fetch.resetMocks() // Сбрасываем моки перед каждым тестом
+    fetch.resetMocks()
   })
 
   it('should render books', () => {
@@ -41,7 +41,7 @@ describe('BookshelfPage', () => {
   })
 
   it('should fetch and update books when component mounts', async () => {
-    fetch.mockResponseOnce(JSON.stringify(mockBooks)) // Мокируем ответ fetch
+    fetch.mockResponseOnce(JSON.stringify(mockBooks))
 
     render(<BookshelfPage initialBooksData={[]} />)
 
@@ -54,7 +54,7 @@ describe('BookshelfPage', () => {
   it('should update book status on updateBook call', async () => {
     const updatedBook = { ...mockBooks[0], status: 'reading' }
 
-    fetch.mockResponseOnce(JSON.stringify(updatedBook)) // Мокируем ответ fetch
+    fetch.mockResponseOnce(JSON.stringify(updatedBook))
 
     const { rerender } = render(<BookshelfPage initialBooksData={mockBooks} />)
 
@@ -68,7 +68,7 @@ describe('BookshelfPage', () => {
         body: JSON.stringify(updatedBook),
       })
 
-      expect(fetch).toHaveBeenCalled() // Проверяем, что fetch был вызван
+      expect(fetch).toHaveBeenCalled()
       rerender(<BookshelfPage initialBooksData={[updatedBook, ...mockBooks.slice(1)]} />)
     })
 

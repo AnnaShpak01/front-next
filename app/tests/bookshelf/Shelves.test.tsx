@@ -1,9 +1,8 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import Shelves from '../../bookshelf/Shelves' // Укажите правильный путь к компоненту
+import Shelves from '../../bookshelf/Shelves'
 import { BookType } from '../../../components/types'
 
-// Создаем макеты данных
 const mockBooksData: BookType[] = [
   {
     id: '1',
@@ -29,7 +28,6 @@ const mockBooksData: BookType[] = [
   },
 ]
 
-// Создаем макет функции обновления книги
 const mockUpdateBook = jest.fn()
 
 describe('Shelves Component', () => {
@@ -38,51 +36,62 @@ describe('Shelves Component', () => {
   })
 
   test('should render books on the shelves', () => {
-    // Проверяем, что книги отображаются на полках
     expect(screen.getByText('Book One')).toBeInTheDocument()
     expect(screen.getByText('Book Two')).toBeInTheDocument()
   })
 
   test('should open modal on double click', () => {
-    // Делаем двойной клик на книге
     fireEvent.doubleClick(screen.getByText('Book One'))
 
-    // Проверяем, что открывается модальное окно
     expect(screen.getByText('Description for Book One')).toBeInTheDocument()
   })
 
   test('should close modal on button click', () => {
-    // Делаем двойной клик на книге
     fireEvent.doubleClick(screen.getByText('Book One'))
 
-    // Нажимаем на кнопку закрытия модального окна
     fireEvent.click(screen.getByRole('button', { name: /×/ }))
 
-    // Проверяем, что модальное окно закрылось
     expect(screen.queryByText('Description for Book One')).not.toBeInTheDocument()
   })
 
   test('should update book status on drop', () => {
-    // Имитируем событие перетаскивания
     const dropEvent = {
       preventDefault: jest.fn(),
       dataTransfer: {
-        getData: jest.fn(() => '1'), // id книги, которую перетаскиваем
+        getData: jest.fn(() => '1'),
         dropEffect: 'move',
         effectAllowed: 'move',
-        items: [],
-        files: [],
-        types: [],
       },
-    } as unknown as DragEvent // Имитация DragEvent
+    } as unknown as DragEvent
 
-    // Находим элемент полки и вызываем функцию onDrop
-    const shelfElement = screen.getByText('New Books').closest('div') // Находим элемент полки
+    const shelfElement = screen.getByText('In Progress').closest('div') // dropping to 'In Progress' shelf
     if (shelfElement) {
-      fireEvent.drop(shelfElement, dropEvent) // Вызываем событие drop
+      fireEvent.drop(shelfElement, dropEvent)
     }
 
-    // Проверяем, что функция обновления была вызвана
-    expect(mockUpdateBook).toHaveBeenCalledWith('1', { ...mockBooksData[0], status: 'New Books' })
+    expect(mockUpdateBook).toHaveBeenCalledWith('1', { ...mockBooksData[0], status: 'In Progress' })
+  })
+
+  test('should start and end drag events', () => {
+    const bookElement = screen.getByText('Book One').closest('div')
+    if (bookElement) {
+      fireEvent.dragStart(bookElement)
+      bookElement.classList.add('dragged')
+      expect(bookElement.classList).toContain('dragged')
+
+      fireEvent.dragEnd(bookElement)
+      bookElement.classList.remove('dragged')
+      expect(bookElement.classList).not.toContain('dragged')
+    }
+  })
+
+  test('should open modal and display book details', () => {
+    fireEvent.doubleClick(screen.getByText('Book One'))
+
+    expect(screen.getByText('Description for Book One')).toBeInTheDocument()
+
+    fireEvent.click(screen.getByRole('button', { name: /×/ }))
+
+    expect(screen.queryByText('Description for Book One')).not.toBeInTheDocument()
   })
 })
