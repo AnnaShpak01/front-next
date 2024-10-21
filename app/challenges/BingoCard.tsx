@@ -1,3 +1,4 @@
+import React from 'react'
 import styles from './challenges.module.scss'
 
 export type BingoTypeCard = {
@@ -6,19 +7,24 @@ export type BingoTypeCard = {
   color: string
   status: boolean
   bingoClass: string
-  updateBingo: (
-    id: string,
-    updatedData: { task: string; color: string; status: boolean; id: string }
-  ) => void
+  updateBingo: (id: string, updatedData: { task: string; color: string; status: boolean }) => void // Убираем id
 }
 
-const BingoCard = ({ id, side, color, status, bingoClass, updateBingo }: BingoTypeCard) => {
+const BingoCard: React.FC<BingoTypeCard> = ({
+  id,
+  side,
+  color,
+  status,
+  bingoClass,
+  updateBingo,
+}) => {
   const onClickCard = () => {
-    updateBingo(id, { task: side, color, status: !status, id: id.toString() })
+    console.log('Card clicked with ID:', id) // Лог для проверки id
+    updateBingo(id, { task: side, color, status: !status }) // Передаем обновленные данные
   }
 
   return (
-    <div className={styles['bingo-card']} key={id}>
+    <div className={styles['bingo-card']}>
       <div className={styles['flip-card']} onClick={onClickCard}>
         <div className={bingoClass}>
           <div className={styles['flip-card-front']}>{side}</div>

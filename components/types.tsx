@@ -1,8 +1,8 @@
 export type BingoType = {
+  _id: string // Измените id на _id
   task: string
   color: string
   status: boolean
-  id: string
 }
 
 export type BookType = {

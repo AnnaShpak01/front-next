@@ -14,6 +14,7 @@ export default function Home() {
       Authorization: `Bearer ${token}`,
     },
   }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,22 +31,26 @@ export default function Home() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
+      const { _id, ...dataToUpdate } = updatedData // Убираем _id
+
       const response = await fetch(`/api/challenges?id=${id}`, {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(dataToUpdate), // Передаем данные без _id
       })
-      if (!response.ok) {
-        throw new Error('Failed to update bingo item')
+
+      if (response.ok) {
+        setBingoData((prevData) =>
+          prevData.map((item) => (item._id === id ? { ...item, ...dataToUpdate } : item))
+        )
+      } else {
+        console.error('Ошибка при обновлении:', response.statusText)
       }
-      const data: BingoType = await response.json()
-      const updatedBingoData: BingoType[] = bingoData.map((item: BingoType) =>
-        item.id === id ? { ...item, ...data } : item
-      )
-      setBingoData(updatedBingoData)
+
+      console.log('Bingo item updated successfully:', dataToUpdate)
     } catch (error) {
       console.error('Error updating bingo item:', error)
     }
