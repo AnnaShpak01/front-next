@@ -7,7 +7,10 @@ export type BingoTypeCard = {
   color: string
   status: boolean
   bingoClass: string
-  updateBingo: (id: string, updatedData: { task: string; color: string; status: boolean }) => void // Убираем id
+  updateBingo: (
+    id: string,
+    updatedData: { task: string; color: string; status: boolean } // Убираем id
+  ) => void
 }
 
 const BingoCard: React.FC<BingoTypeCard> = ({

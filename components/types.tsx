@@ -1,5 +1,5 @@
 export type BingoType = {
-  _id: string // Измените id на _id
+  _id: string // Обязательное поле
   task: string
   color: string
   status: boolean
@@ -14,11 +14,11 @@ export type BookType = {
   color: string
   genre: string
   pages: number
-  id: string
+  _id: string
 }
 
 export type FiltersType = {
-  id: string
+  _id: string
   name: string
   label: string
   className: string

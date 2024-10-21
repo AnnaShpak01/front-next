@@ -7,7 +7,7 @@ import Spinner from 'components/spinner/Spinner'
 
 type BingoPageProps = {
   bingoData?: BingoType[]
-  updateBingo: (id: string, updatedData: BingoType) => void
+  updateBingo: (id: string, updatedData: BingoType) => void // Обновленный тип
 }
 
 const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
@@ -21,19 +21,20 @@ const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
 
   const handleUpdateBingo = (
     id: string,
-    updatedData: { task: string; color: string; status: boolean; id: string }
+    updatedData: { task: string; color: string; status: boolean }
   ) => {
     if (!id) {
       console.error('ID is undefined, cannot update bingo card')
       return
     }
 
+    // Обновляем состояние локально
     setCards((prevCards) =>
       prevCards.map((card) => (card._id === id ? { ...card, ...updatedData } : card))
     )
 
-    // Здесь обновляем bingo с правильной структурой
-    updateBingo(id, { ...updatedData, _id: id }) // Добавляем _id
+    // Передаем данные с _id в updateBingo
+    updateBingo(id, { _id: id, ...updatedData }) // Здесь добавляем _id
   }
 
   if (!cards || cards.length === 0) {
