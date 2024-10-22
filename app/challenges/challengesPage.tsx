@@ -31,7 +31,7 @@ export default function Home() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
-      const { _id, ...dataToUpdate } = updatedData // Убираем _id
+      const { _id, ...dataToUpdate } = updatedData
 
       const response = await fetch(`/api/challenges?id=${id}`, {
         method: 'PUT',
@@ -39,7 +39,7 @@ export default function Home() {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(dataToUpdate), // Передаем данные без _id
+        body: JSON.stringify(dataToUpdate),
       })
 
       if (response.ok) {
@@ -49,8 +49,6 @@ export default function Home() {
       } else {
         console.error('Ошибка при обновлении:', response.statusText)
       }
-
-      console.log('Bingo item updated successfully:', dataToUpdate)
     } catch (error) {
       console.error('Error updating bingo item:', error)
     }

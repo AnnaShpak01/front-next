@@ -31,7 +31,6 @@ export default function Home({ initialBooksData }: { initialBooksData: BookType[
 
   const updateBook = async (id: string, updatedData: BookType) => {
     try {
-      // Удаление _id из обновляемых данных
       const { _id, ...bookWithoutId } = updatedData
 
       const response = await fetch(`/api/bookshelf?id=${id}`, {
@@ -40,7 +39,7 @@ export default function Home({ initialBooksData }: { initialBooksData: BookType[
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(bookWithoutId), // Отправляем данные без _id
+        body: JSON.stringify(bookWithoutId),
       })
 
       if (!response.ok) {

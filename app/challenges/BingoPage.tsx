@@ -7,7 +7,7 @@ import Spinner from 'components/spinner/Spinner'
 
 type BingoPageProps = {
   bingoData?: BingoType[]
-  updateBingo: (id: string, updatedData: BingoType) => void // Обновленный тип
+  updateBingo: (id: string, updatedData: BingoType) => void
 }
 
 const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
@@ -28,13 +28,11 @@ const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
       return
     }
 
-    // Обновляем состояние локально
     setCards((prevCards) =>
       prevCards.map((card) => (card._id === id ? { ...card, ...updatedData } : card))
     )
 
-    // Передаем данные с _id в updateBingo
-    updateBingo(id, { _id: id, ...updatedData }) // Здесь добавляем _id
+    updateBingo(id, { _id: id, ...updatedData })
   }
 
   if (!cards || cards.length === 0) {
@@ -51,12 +49,12 @@ const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
       {cards.map((item: BingoType, index: number) => (
         <CSSTransition key={item._id || index} timeout={500} classNames="bingo-card">
           <BingoCard
-            id={item._id} // Используем _id для передачи
+            id={item._id}
             side={item.task}
             color={item.color}
             status={item.status}
             bingoClass={`${styles['flip-card-inner']} ${item.status ? styles['is-flipped'] : ''}`}
-            updateBingo={handleUpdateBingo} // Передаем новую функцию обновления
+            updateBingo={handleUpdateBingo}
           />
         </CSSTransition>
       ))}

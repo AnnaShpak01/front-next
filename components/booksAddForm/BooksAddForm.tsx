@@ -232,12 +232,15 @@ const BooksAddForm = ({
           id="pages"
           placeholder="Count of pages"
           value={bookData.pages}
-          onChange={(e) =>
+          onChange={(e) => {
+            const value = e.target.value
+            const parsedValue = parseInt(value, 10)
+
             setBookData((prev) => ({
               ...prev,
-              pages: parseInt(e.target.value),
+              pages: isNaN(parsedValue) || value === '' ? 0 : parsedValue,
             }))
-          }
+          }}
         />
       </div>
       <div className={` ${styles['mb-3']} ${styles.formline} `}>

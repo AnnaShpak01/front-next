@@ -63,7 +63,6 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
     let data = evt.dataTransfer?.getData('text/plain')
     shelves.map((shelf: BookType) => {
       if (shelf._id.toString() === data?.toString()) {
-        // Используем _id
         updateBook(shelf._id, { ...shelf, status: newStatus })
         return { ...shelf, status: newStatus }
       } else {
@@ -73,7 +72,7 @@ const Shelves: React.FC<ShelvesPageProps> = ({ booksData, updateBook }) => {
   }
 
   const openModal = (bookId: string) => {
-    const showShelf = shelves.find((shelf: BookType) => shelf._id === bookId) // Используем _id
+    const showShelf = shelves.find((shelf: BookType) => shelf._id === bookId)
     if (showShelf) {
       setSelectedBook(showShelf)
       setModalIsOpen(true)
