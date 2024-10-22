@@ -3,7 +3,7 @@ import BooksAddForm from '../BooksAddForm/BooksAddForm'
 import BooksFilters from '../BooksFilters/BooksFilters'
 import styles from './booksPage.module.scss'
 import { BookType, FiltersType } from 'components/types'
-import { Suspense, useState } from 'react'
+import React, { Suspense, useState } from 'react'
 import Loading from 'app/loading'
 
 const BooksPage = ({

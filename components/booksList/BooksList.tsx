@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo } from 'react'
+import React, { useMemo } from 'react'
 import { BookType } from '../types'
 import BooksListItem from '../BooksListItem/BooksListItem'
 import Loading from 'app/loading'

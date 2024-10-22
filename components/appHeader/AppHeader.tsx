@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import styles from './appHeader.module.scss'
+import React from 'react'
 import { usePathname } from 'next/navigation'
 import { useSession, signOut } from 'next-auth/react'
 import { checkAuthorization } from '../LoginComponent/CheckAuthorization'

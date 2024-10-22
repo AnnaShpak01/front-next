@@ -1,6 +1,6 @@
 import SignIn from 'components/SignIn/SignIn'
 import { useSession, signOut } from 'next-auth/react'
-import { useEffect } from 'react'
+import React, { useEffect } from 'react'
 import { checkAuthorization } from '../LoginComponent/CheckAuthorization'
 
 const LoginComponent = ({ children }: { children: any }) => {

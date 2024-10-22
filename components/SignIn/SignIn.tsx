@@ -1,6 +1,7 @@
 import { signIn } from 'next-auth/react'
 import styles from './SignIn.module.scss'
 import { usePathname } from 'next/navigation'
+import React from 'react'
 
 export default function SignIn() {
   const pathname = usePathname()

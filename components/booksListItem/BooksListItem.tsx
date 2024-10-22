@@ -1,4 +1,5 @@
 import styles from './booksListItem.module.scss'
+import React from 'react'
 
 type BookItemType = {
   name: string

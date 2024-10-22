@@ -3,6 +3,7 @@
 import classNames from 'classnames'
 import { FiltersType } from '../types'
 import Spinner from '../spinner/Spinner'
+import React from 'react'
 import styles from './bookfilters.module.scss'
 
 const BooksFilters = ({
