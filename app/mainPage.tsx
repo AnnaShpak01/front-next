@@ -45,7 +45,7 @@ export default function Page() {
 
   const updateDeleteList = useCallback(
     (deletedBookId: string) => {
-      setBooks((prevBooks) => prevBooks.filter((book) => book.id !== deletedBookId))
+      setBooks((prevBooks) => prevBooks.filter((book) => book._id !== deletedBookId))
     },
     [setBooks]
   )

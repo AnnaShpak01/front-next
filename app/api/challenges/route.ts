@@ -1,14 +1,22 @@
 export async function GET(request: Request) {
   try {
-    const initialBingoData = await fetch('http://localhost:8080/bingo', {
+    const response = await fetch('http://localhost:8080/bingo', {
       method: 'GET',
-      headers: request.headers,
+      headers: {
+        Authorization: request.headers.get('Authorization') || '',
+        'Content-Type': 'application/json',
+      },
     })
-    return initialBingoData
+
+    if (!response.ok) {
+      throw new Error(`Ошибка при получении данных: ${response.statusText}`)
+    }
+
+    const data = await response.json()
+    return new Response(JSON.stringify(data), { status: 200 })
   } catch (error) {
     console.error('Error fetching initial bingo data:', error)
-
-    return new Response(JSON.stringify([]), { status: 500 })
+    return new Response('Error fetching data', { status: 500 })
   }
 }
 
@@ -16,17 +24,25 @@ export async function PUT(request: Request) {
   try {
     const body = await request.json()
     const { searchParams } = new URL(request.url)
-    const id = searchParams.get('_id')
+    const id = searchParams.get('id')
 
     const response = await fetch(`http://localhost:8080/bingo/${id}`, {
       method: 'PUT',
-      headers: request.headers,
+      headers: {
+        Authorization: request.headers.get('Authorization') || '',
+        'Content-Type': 'application/json',
+      },
       body: JSON.stringify(body),
     })
 
-    return response
+    if (!response.ok) {
+      throw new Error(`Ошибка при обновлении данных: ${response.statusText}`)
+    }
+
+    const updatedData = await response.json()
+    return new Response(JSON.stringify(updatedData), { status: 200 })
   } catch (error) {
-    console.error('Error updating bingo data:', error)
-    return new Response(JSON.stringify({ error: 'Failed to update bingo item' }), { status: 500 })
+    console.error('Error updating bingo item:', error)
+    return new Response('Error updating bingo item', { status: 500 })
   }
 }

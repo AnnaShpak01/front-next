@@ -2,7 +2,6 @@
   width: 30px;
   float: left;
   display: flex;
-  align-items: center;
   justify-content: space-evenly;
   padding: 15px;
   box-shadow: 3px 1px 12px #0000001a;
@@ -79,8 +78,6 @@
   width: 100%;
   margin: 0 auto;
   padding: 0;
-  /* display: flex;
-    justify-content: space-evenly; */
 }
 @media (max-width: 991px) {
   .container {
@@ -140,7 +137,6 @@
 .drag_row {
   width: 100%;
   display: flex;
-  /* flex-wrap: wrap; */
 }
 
 .name {
@@ -206,7 +202,6 @@
 .popup_content,
 .popup_engineer_content,
 .popup_calc_end_content {
-  /* display: none; */
   position: fixed;
   top: 10%;
   left: 50%;

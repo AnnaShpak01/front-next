@@ -2,10 +2,10 @@
 import React, { Suspense, useEffect, useState } from 'react'
 import BookChallengePage from './BookChallengePage'
 import { BingoType } from 'components/types'
-import Loading from '../loading'
+import Loading from './loading'
 import { useSession } from 'next-auth/react'
 
-export default function ChallengesPage() {
+export default function Home() {
   const [bingoData, setBingoData] = useState<BingoType[]>([])
   const { data: session, status } = useSession()
   const token = session?.loggedUser
@@ -14,6 +14,7 @@ export default function ChallengesPage() {
       Authorization: `Bearer ${token}`,
     },
   }
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -30,22 +31,24 @@ export default function ChallengesPage() {
 
   const updateBingo = async (id: string, updatedData: BingoType) => {
     try {
-      const response = await fetch(`/api/challenges?_id=${id}`, {
+      const { _id, ...dataToUpdate } = updatedData
+
+      const response = await fetch(`/api/challenges?id=${id}`, {
         method: 'PUT',
         headers: {
-          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
         },
-        body: JSON.stringify(updatedData),
+        body: JSON.stringify(dataToUpdate),
       })
-      if (!response.ok) {
-        throw new Error('Failed to update bingo item')
+
+      if (response.ok) {
+        setBingoData((prevData) =>
+          prevData.map((item) => (item._id === id ? { ...item, ...dataToUpdate } : item))
+        )
+      } else {
+        console.error('Ошибка при обновлении:', response.statusText)
       }
-      const data: BingoType = await response.json()
-      const updatedBingoData: BingoType[] = bingoData.map((item: BingoType) =>
-        item._id === id ? { ...item, ...data } : item
-      )
-      setBingoData(updatedBingoData)
     } catch (error) {
       console.error('Error updating bingo item:', error)
     }

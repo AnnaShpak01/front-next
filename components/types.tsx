@@ -1,11 +1,12 @@
 export type BingoType = {
+  _id: string
   task: string
   color: string
   status: boolean
-  _id: string
 }
 
 export type BookType = {
+  _id: string
   status: string
   name: string
   author: string
@@ -14,11 +15,10 @@ export type BookType = {
   color: string
   genre: string
   pages: number
-  id: string
 }
 
 export type FiltersType = {
-  id: string
+  _id: string
   name: string
   label: string
   className: string

@@ -58,7 +58,7 @@ const BooksList = ({
       {Array.isArray(filteredBooks) &&
         filteredBooks.length !== 0 &&
         filteredBooks.map((item: BookType) => (
-          <BooksListItem key={item.id} {...item} onDelete={() => onDelete(item.id)} />
+          <BooksListItem key={item._id} {...item} onDelete={() => onDelete(item._id)} />
         ))}
     </div>
   )
