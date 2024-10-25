@@ -3,34 +3,45 @@ import { render, screen, waitFor } from '@testing-library/react'
 import BookshelfPage from '../../bookshelf/bookshelfPage'
 import { BookType } from '../../../components/types'
 
+import { useSession } from 'next-auth/react'
+
 const mockBooks: BookType[] = [
   {
-    id: '1',
+    _id: '1',
     name: 'Book One',
     author: 'Author One',
     imgsrc: 'image1.jpg',
     description: 'Description for Book One',
-    status: 'read',
+    status: 'New Books',
     color: 'blue',
     genre: 'Fiction',
     pages: 300,
   },
   {
-    id: '2',
+    _id: '2',
     name: 'Book Two',
     author: 'Author Two',
     imgsrc: 'image2.jpg',
     description: 'Description for Book Two',
-    status: 'unread',
+    status: 'New Books',
     color: 'green',
     genre: 'Non-fiction',
     pages: 200,
   },
 ]
 
+jest.mock('next-auth/react')
+
 describe('BookshelfPage', () => {
   beforeEach(() => {
-    fetch.resetMocks()
+    ;(useSession as jest.Mock).mockReturnValue({
+      data: { loggedUser: 'mocked_token' },
+      status: 'authenticated',
+    })
+
+    ;(fetch as jest.Mock).mockResolvedValue({
+      json: jest.fn().mockResolvedValueOnce(mockBooks),
+    })
   })
 
   it('should render books', () => {
@@ -41,8 +52,6 @@ describe('BookshelfPage', () => {
   })
 
   it('should fetch and update books when component mounts', async () => {
-    fetch.mockResponseOnce(JSON.stringify(mockBooks))
-
     render(<BookshelfPage initialBooksData={[]} />)
 
     await waitFor(() => {
@@ -52,14 +61,14 @@ describe('BookshelfPage', () => {
   })
 
   it('should update book status on updateBook call', async () => {
-    const updatedBook = { ...mockBooks[0], status: 'reading' }
+    const updatedBook = { ...mockBooks[0], status: 'In Progress' }
 
-    fetch.mockResponseOnce(JSON.stringify(updatedBook))
+    jest.fn().mockResolvedValueOnce(updatedBook)
 
     const { rerender } = render(<BookshelfPage initialBooksData={mockBooks} />)
 
     await waitFor(async () => {
-      await fetch(`/api/bookshelf?id=${updatedBook.id}`, {
+      await fetch(`/api/bookshelf?id=${updatedBook._id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -72,6 +81,6 @@ describe('BookshelfPage', () => {
       rerender(<BookshelfPage initialBooksData={[updatedBook, ...mockBooks.slice(1)]} />)
     })
 
-    expect(screen.getByText('reading')).toBeInTheDocument()
+    expect(screen.getByText('In Progress')).toBeInTheDocument()
   })
 })

@@ -2,6 +2,7 @@ import React from 'react'
 const Spinner = () => {
   return (
     <svg
+      data-testid="loading-spinner"
       xmlns="http://www.w3.org/2000/svg"
       style={{ margin: '0 auto', background: 'none', display: 'block' }}
       width="200px"

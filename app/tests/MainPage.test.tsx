@@ -1,192 +1,83 @@
-// import React from 'react'
-// import { act, render, screen, waitFor, fireEvent } from '@testing-library/react'
-// import Page from '../page'
+// import React from 'react' // Добавляем импорт React
+// import { render, screen, waitFor } from '@testing-library/react'
+// import Page from '../mainPage'
 // import { useSession } from 'next-auth/react'
-// import BooksPage from '../../components/BooksPage/BooksPage'
-// import { BookType, FiltersType } from 'components/types'
+// import fetch from 'node-fetch'
 
-// class MockResponse extends Response {
-//   private body: any
-
-//   constructor(body: any = null, init: ResponseInit = {}) {
-//     super(body, init)
-//     this.body = body
-//   }
-
-//   json() {
-//     return Promise.resolve(this.body)
-//   }
-
-//   static error() {
-//     return new MockResponse(null, { status: 500, statusText: 'Internal Server Error' })
-//   }
-
-//   static redirect(url: string | URL, status: number = 302) {
-//     return new MockResponse(null, { status, headers: { Location: url.toString() } })
-//   }
-// }
-
-// ;(global as any).Response = MockResponse
-// ;(global as any).fetch = jest.fn((url) => {
-//   const urlString = typeof url === 'string' ? url : url.toString()
-//   if (urlString.includes('/bookshelf')) {
-//     return Promise.resolve(
-//       new MockResponse(JSON.stringify(mockBooksData), {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       })
-//     )
-//   } else if (urlString.includes('/api')) {
-//     return Promise.resolve(
-//       new MockResponse(JSON.stringify(mockFiltersData), {
-//         status: 200,
-//         headers: { 'Content-Type': 'application/json' },
-//       })
-//     )
-//   }
-//   return Promise.reject(new Error('Not found'))
-// })
+// // Приводим глобальный fetch к типу globalThis.fetch для совместимости с DOM API
+// global.fetch = fetch as unknown as (
+//   input: RequestInfo | URL,
+//   init?: RequestInit | undefined
+// ) => Promise<globalThis.Response>
 
 // jest.mock('next-auth/react', () => ({
 //   useSession: jest.fn(),
 // }))
 
-// jest.mock('../../components/BooksPage/BooksPage', () => jest.fn(() => null))
+// const mockBooksData = [{ _id: '1', title: 'Book 1', author: 'Author 1' }]
+// const mockFiltersData = [{ genre: 'Fiction' }]
 
-// const mockBooksData: BookType[] = [
-//   {
-//     id: '1',
-//     name: 'Book One',
-//     author: 'Author One',
-//     imgsrc: 'image1.jpg',
-//     description: 'Description 1',
-//     status: 'read',
-//     color: 'blue',
-//     genre: 'Fiction',
-//     pages: 300,
-//   },
-//   {
-//     id: '2',
-//     name: 'Book Two',
-//     author: 'Author Two',
-//     imgsrc: 'image2.jpg',
-//     description: 'Description 2',
-//     status: 'unread',
-//     color: 'green',
-//     genre: 'Non-Fiction',
-//     pages: 200,
-//   },
-// ]
+// const createMockResponse = (data: any): globalThis.Response => {
+//   return new Response(JSON.stringify(data), {
+//     status: 200,
+//     statusText: 'OK',
+//     headers: { 'Content-Type': 'application/json' },
+//   }) as unknown as globalThis.Response
+// }
 
-// const mockFiltersData: FiltersType[] = [
-//   { id: '1', name: 'Fiction', label: 'Fiction', className: 'fiction-class' },
-//   { id: '2', name: 'Non-Fiction', label: 'Non-Fiction', className: 'nonfiction-class' },
-// ]
-
-// describe('Page Component', () => {
+// describe('Page', () => {
 //   beforeEach(() => {
 //     jest.clearAllMocks()
 //     ;(useSession as jest.Mock).mockReturnValue({
-//       data: { loggedUser: 'test-token' },
+//       data: { loggedUser: 'mockToken' },
 //       status: 'authenticated',
 //     })
+
+//     jest
+//       .spyOn(global, 'fetch')
+//       .mockResolvedValueOnce(createMockResponse(mockBooksData)) // Mock для booksResponse
+//       .mockResolvedValueOnce(createMockResponse(mockFiltersData)) // Mock для filtersResponse
 //   })
 
-//   it('should render loading state initially', async () => {
-//     await act(async () => {
-//       render(<Page />)
-//     })
+//   it('should fetch and display books and filters', async () => {
+//     render(<Page />)
 
-//     await waitFor(() => {
-//       expect(screen.getByText(/Loading/i)).toBeInTheDocument()
-//     })
+//     // Проверяем, что данные загружаются и отображаются
+//     await waitFor(() => expect(screen.getByText('Book 1')).toBeInTheDocument())
+//     await waitFor(() => expect(screen.getByText('Fiction')).toBeInTheDocument())
 //   })
 
-//   it('should fetch and render books and filters after loading', async () => {
-//     const mockUpdateList = jest.fn()
-//     const mockUpdateDeleteList = jest.fn()
+//   it('should update the book list when a new book is added', async () => {
+//     render(<Page />)
 
-//     ;(BooksPage as jest.Mock).mockImplementation(
-//       ({ booksData, filterData, updateList, updateDeleteList }) => {
-//         expect(booksData).toEqual(mockBooksData)
-//         expect(filterData).toEqual(mockFiltersData)
-//         expect(updateList).toBe(mockUpdateList)
-//         expect(updateDeleteList).toBe(mockUpdateDeleteList)
-//         return <div>BooksPage</div>
-//       }
-//     )
+//     // Ждем загрузки данных
+//     await waitFor(() => expect(screen.getByText('Book 1')).toBeInTheDocument())
 
-//     render(<Page updateDeleteList={mockUpdateDeleteList} />) // Убедитесь, что передаете updateDeleteList
+//     const newBook = { _id: '2', title: 'Book 2', author: 'Author 2' }
+//     const updateList = jest.fn()
 
-//     await waitFor(() => {
-//       expect(global.fetch).toHaveBeenCalledTimes(2)
-//     })
+//     // Симуляция добавления новой книги
+//     const { rerender } = render(<Page />)
+//     rerender(<Page updateList={updateList} />)
+//     updateList(newBook)
 
-//     expect(screen.getByText('BooksPage')).toBeInTheDocument()
+//     // Проверяем, что книга была добавлена
+//     await waitFor(() => expect(screen.getByText('Book 2')).toBeInTheDocument())
 //   })
 
-//   it('should call updateList when adding a book', async () => {
-//     const mockUpdateList = jest.fn()
+//   it('should update the book list when a book is deleted', async () => {
+//     render(<Page />)
 
-//     ;(BooksPage as jest.Mock).mockImplementation(({ updateList }) => {
-//       React.useEffect(() => {
-//         updateList({
-//           id: '3',
-//           name: 'Book Three',
-//           author: 'Author Three',
-//           imgsrc: 'image3.jpg',
-//           description: 'Description 3',
-//           status: 'unread',
-//           color: 'yellow',
-//           genre: 'Fiction',
-//           pages: 400,
-//         })
-//       }, [updateList])
-//       return <div>BooksPage</div>
-//     })
+//     // Ждем загрузки данных
+//     await waitFor(() => expect(screen.getByText('Book 1')).toBeInTheDocument())
 
-//     render(<Page updateDeleteList={mockUpdateDeleteList} />) // Убедитесь, что передаете updateDeleteList
+//     const updateDeleteList = jest.fn()
 
-//     await waitFor(() => {
-//       expect(mockUpdateList).toHaveBeenCalledTimes(1)
-//       expect(mockUpdateList).toHaveBeenCalledWith({
-//         id: '3',
-//         name: 'Book Three',
-//         author: 'Author Three',
-//         imgsrc: 'image3.jpg',
-//         description: 'Description 3',
-//         status: 'unread',
-//         color: 'yellow',
-//         genre: 'Fiction',
-//         pages: 400,
-//       })
-//     })
-//   })
+//     // Симуляция удаления книги
+//     const deletedBookId = '1'
+//     updateDeleteList(deletedBookId)
 
-//   it('should call updateDeleteList when deleting a book', async () => {
-//     const mockUpdateDeleteList = jest.fn()
-//     const bookId = '1'
-
-//     ;(BooksPage as jest.Mock).mockImplementation(({ updateDeleteList }) => {
-//       const handleDelete = () => {
-//         updateDeleteList(bookId)
-//       }
-
-//       return (
-//         <div>
-//           <div>BooksPage</div>
-//           <button onClick={handleDelete}>Delete Book</button>
-//         </div>
-//       )
-//     })
-
-//     render(<Page updateDeleteList={mockUpdateDeleteList} />)
-
-//     fireEvent.click(screen.getByText('Delete Book'))
-
-//     await waitFor(() => {
-//       expect(mockUpdateDeleteList).toHaveBeenCalledTimes(1)
-//       expect(mockUpdateDeleteList).toHaveBeenCalledWith(bookId)
-//     })
+//     // Проверяем, что книга была удалена
+//     await waitFor(() => expect(screen.queryByText('Book 1')).not.toBeInTheDocument())
 //   })
 // })

@@ -3,7 +3,7 @@
 import React, { useMemo } from 'react'
 import { BookType } from '../types'
 import BooksListItem from '../BooksListItem/BooksListItem'
-import Loading from 'app/loading'
+import Loading from '../../app/loading'
 import { useSession } from 'next-auth/react'
 
 const BooksList = ({

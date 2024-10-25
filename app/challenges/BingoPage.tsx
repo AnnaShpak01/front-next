@@ -3,7 +3,7 @@ import { BingoType } from '../../components/types'
 import { CSSTransition, TransitionGroup } from 'react-transition-group'
 import BingoCard from './BingoCard'
 import styles from './challenges.module.scss'
-import Spinner from 'components/spinner/Spinner'
+import Spinner from '../../components/spinner/Spinner'
 
 type BingoPageProps = {
   bingoData?: BingoType[]
@@ -19,7 +19,7 @@ const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
     }
   }, [bingoData])
 
-  const handleUpdateBingo = (
+  const handleUpdateBingo = async (
     id: string,
     updatedData: { task: string; color: string; status: boolean }
   ) => {
@@ -28,7 +28,7 @@ const BingoPage: React.FC<BingoPageProps> = ({ bingoData, updateBingo }) => {
       return
     }
 
-    setCards((prevCards) =>
+    await setCards((prevCards) =>
       prevCards.map((card) => (card._id === id ? { ...card, ...updatedData } : card))
     )
 

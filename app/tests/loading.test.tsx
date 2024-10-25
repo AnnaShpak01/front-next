@@ -3,12 +3,10 @@ import { render, screen } from '@testing-library/react'
 import Loading from '../loading'
 import Spinner from '../../components/spinner/Spinner'
 
-// Мокаем модуль для стилей
 jest.mock('./page.module.scss', () => ({
   centered: 'mock-centered-class',
 }))
 
-// Мокаем компонент Spinner
 // eslint-disable-next-line react/display-name
 jest.mock('../../components/spinner/Spinner', () => () => <div>Mock Spinner</div>)
 

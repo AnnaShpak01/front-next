@@ -4,7 +4,7 @@ import BooksFilters from '../BooksFilters/BooksFilters'
 import styles from './booksPage.module.scss'
 import { BookType, FiltersType } from 'components/types'
 import React, { Suspense, useState } from 'react'
-import Loading from 'app/loading'
+import Loading from '../../app/loading'
 
 const BooksPage = ({
   booksData,

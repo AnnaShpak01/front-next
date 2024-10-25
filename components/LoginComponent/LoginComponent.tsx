@@ -1,4 +1,4 @@
-import SignIn from 'components/SignIn/SignIn'
+import SignIn from '../../components/SignIn/SignIn'
 import { useSession, signOut } from 'next-auth/react'
 import React, { useEffect } from 'react'
 import { checkAuthorization } from '../LoginComponent/CheckAuthorization'

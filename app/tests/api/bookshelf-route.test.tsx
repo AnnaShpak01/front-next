@@ -1,6 +1,5 @@
 import { GET, POST, PUT, DELETE } from '../../api/bookshelf/route'
 
-// Мокируем fetch с помощью jest-fetch-mock
 beforeEach(() => {
   fetchMock.resetMocks()
 })
@@ -28,7 +27,7 @@ describe('Books API', () => {
     const data = await response.json()
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(data).toEqual([]) // При ошибке возвращаем пустой массив
+    expect(data).toEqual([])
     expect(response.status).toBe(500)
   })
 
@@ -67,10 +66,9 @@ describe('Books API', () => {
     const response = await POST(request)
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(response.status).toBe(500) // При ошибке должен быть статус 500
+    expect(response.status).toBe(500)
   })
   it('POST should handle non-2xx response from API', async () => {
-    // Мокируем ответ с ошибкой (например, статус 400)
     fetchMock.mockResponseOnce('', { status: 400 })
 
     const request = new Request('http://localhost:8080/books', {
@@ -81,7 +79,7 @@ describe('Books API', () => {
     const response = await POST(request)
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(response.status).toBe(500) // Проверяем, что при ошибке возвращается 500
+    expect(response.status).toBe(500)
   })
   it('PUT should update a book', async () => {
     const updatedBook = { id: '1', name: 'Updated Book' }
@@ -116,7 +114,7 @@ describe('Books API', () => {
     const response = await PUT(request)
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(response.status).toBe(500) // Статус ошибки
+    expect(response.status).toBe(500)
   })
 
   it('DELETE should remove a book', async () => {
@@ -144,6 +142,6 @@ describe('Books API', () => {
     const response = await DELETE(request)
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
-    expect(response.status).toBe(500) // Статус ошибки
+    expect(response.status).toBe(500)
   })
 })

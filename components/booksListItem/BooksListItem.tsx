@@ -12,7 +12,7 @@ type BookItemType = {
 
 const BooksListItem = ({ name, author, genre, pages, status, onDelete }: BookItemType) => {
   return (
-    <div className={styles['card-of-book']}>
+    <div data-testid="book-item" className={styles['card-of-book']}>
       <div className={styles['card-name']}>{name}</div>
       <div className={styles['card-author']}>{author}</div>
       <div className={styles['card-genre']}>{genre}</div>
