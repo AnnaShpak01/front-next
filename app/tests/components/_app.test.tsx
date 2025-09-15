@@ -2,7 +2,7 @@ import React from 'react'
 import { render, screen } from '@testing-library/react'
 import App from '../../../components/app/_app'
 import LoginComponent from '../../../components/LoginComponent/LoginComponent'
-import AppHeader from '../../../components/AppHeader/AppHeader'
+import AppHeader from '../../../components/appHeader/AppHeader'
 
 jest.mock('../../../components/LoginComponent/LoginComponent', () => {
   // eslint-disable-next-line react/display-name

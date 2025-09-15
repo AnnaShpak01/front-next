@@ -1,6 +1,6 @@
 import React from 'react'
 import { render, screen, fireEvent } from '@testing-library/react'
-import AppHeader from '../../../components/AppHeader/AppHeader'
+import AppHeader from '../../../components/appHeader/AppHeader'
 import { useSession, signOut } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
 import { checkAuthorization } from '../../../components/LoginComponent/CheckAuthorization'
